@@ -7,6 +7,7 @@ import {AuthGuard} from "./auth/auth-guard.service";
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   {path:'professors', loadChildren: () => import('./professors/professors.module').then(m => m.ProfessorsModule), canLoad:[AuthGuard]},
+  {path:'theses', loadChildren: () => import('./theses/thesis.module').then(m => m.ThesisModule)},
 
 ];
 
@@ -14,7 +15,10 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules})
   ],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    AuthGuard
+  ]
 })
 export class AppRoutingModule {
 

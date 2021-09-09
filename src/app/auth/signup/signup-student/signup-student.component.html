@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form (ngSubmit)="onSignup(f)" #f="ngForm">
+        <mat-tab-group [(selectedIndex)]="selectedIndex">
+          <mat-tab label="General Info">
+            <div class="form-group">
+              <label for="name">Ime</label>
+              <input type="text" id="name" name="name" ngModel="" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="surname">Prezime</label>
+              <input type="text" id="surname" name="surname" ngModel="" class="form-control">
+            </div>
+            <div class="form-group">
+<!--              <label for="birthDate" class="d-block">Datum Rodjenja</label>-->
+              <mat-form-field appearance="fill">
+                <mat-label>Datum Rodjenja</mat-label>
+                <input matInput id="birthDate" [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div style="display: flex; flex-direction: row-reverse">
+              <button class="btn btn-primary" style="margin: 1px;" (click)="nextStep()">Dalje</button>
+            </div>
+          </mat-tab>
+          <mat-tab label="Account Info">
+            <div class="form-group">
+              <label for="email">Imejl</label>
+              <input type="email" id="email" name="email" ngModel="" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="username">Korisničko Ime</label>
+              <input type="text" id="username" name="username" ngModel="" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="password">Šifra</label>
+              <input type="password" id="password" name="password" ngModel="" class="form-control">
+            </div>
+            <div style="display: flex; flex-direction: row-reverse">
+            <button class="btn btn-primary" style="margin: 1px;" (click)="nextStep()">Dalje</button>
+            <button class="btn btn-primary" style="margin: 1px;" (click)="previousStep()">Nazad</button>
+            </div>
+          </mat-tab>
+          <mat-tab label="Third">
+            <div class="form-group">
+              <label for="index">Broj Indeksa</label>
+              <input type="text" id="index" name="index" ngModel="" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="degreeOfStudy">Stepen Studija</label>
+              <input type="text" id="degreeOfStudy" name="degreeOfStudy" ngModel="" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="department">Smer</label>
+              <input id="department" name="department" ngModel="" class="form-control">
+            </div>
+            <div style="display: flex; flex-direction: row-reverse">
+              <button class="btn btn-primary" style="margin: 1px;" type="submit">Register</button>
+              <button class="btn btn-primary" style="margin: 1px;" (click)="previousStep()">Nazad</button>
+            </div>
+          </mat-tab>
+        </mat-tab-group>
+      </form>
+    </div>
+  </div>
+</div>

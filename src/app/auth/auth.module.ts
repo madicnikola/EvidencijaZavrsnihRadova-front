@@ -4,15 +4,33 @@ import { FormsModule } from '@angular/forms';
 import { SigninComponent } from './signin/signin.component';
 import { SignupComponent } from './signup/signup.component';
 import { AuthRoutingModule } from './auth-routing.module';
+import { SignupStartComponent } from './signup/signup-start/signup-start.component';
+import { SignupStudentComponent } from './signup/signup-student/signup-student.component';
+import { SignupProfessorComponent } from './signup/signup-professor/signup-professor.component';
+import {MatButtonModule} from "@angular/material/button";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatMomentDateModule} from "@angular/material-moment-adapter";
+import {MatTabsModule} from "@angular/material/tabs";
 
 @NgModule({
   declarations: [
     SigninComponent,
-    SignupComponent
+    SignupComponent,
+    SignupStartComponent,
+    SignupStudentComponent,
+    SignupProfessorComponent
   ],
   imports: [
     FormsModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    MatButtonModule,
+    MatDatepickerModule,
+    MatMomentDateModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTabsModule
   ]
 })
 export class AuthModule {}
