@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormGroup, NgForm} from '@angular/forms';
 import {AuthService} from "../auth.service";
-import {LoginRequestPayload} from "../../shared/dto/login-request.payload";
+import {LoginRequestPayload} from "../dto/login-request.payload";
 import {throwError} from "rxjs";
 
 @Component({

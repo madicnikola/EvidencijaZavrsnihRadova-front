@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../auth.service";
-import {FormControl, NgForm} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
 import {MatTabChangeEvent} from "@angular/material/tabs";
 import {Observable} from "rxjs";
 import {map, startWith} from "rxjs/operators";
+import {autocompleteStringValidator} from "../../../shared/validators";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-signup-student',
@@ -11,34 +13,63 @@ import {map, startWith} from "rxjs/operators";
   styleUrls: ['./signup-student.component.css']
 })
 export class SignupStudentComponent implements OnInit {
-  myControl = new FormControl();
   selectedIndex: number = 0;
-  options: string[] = ['Osnovne Akademske Studije', 'Master Studije', 'Doktorske Studije'];
-  filteredOptions: Observable<string[]>;
-  constructor(private authService: AuthService) {
+
+  degreeOfStudyOptions: string[] = ['Osnovne Akademske Studije', 'Master Studije', 'Doktorske Studije'];
+  departmentOptions: string[] = ['ISIT', 'Menadzment', 'ISIT- daljina'];
+
+  filteredOptionsDegree: Observable<string[]>;
+  filteredOptionsDepartment: Observable<string[]>;
+  studentSignupForm: FormGroup;
+
+  validation_msgs = {
+    'departmentControl': [
+      { type: 'invalidAutocompleteString', message: 'Please click one of the autocomplete options.' },
+      { type: 'required', message: 'required' }
+    ],
+    'degreeOfStudyControl': [
+      { type: 'invalidAutocompleteString', message: 'Please click one of the autocomplete options.' },
+      { type: 'required', message: 'required' }
+    ]
+  }
+
+  constructor(private authService: AuthService,
+              private fb: FormBuilder,
+              private router: Router) {
   }
 
 
   ngOnInit() {
-    this.filteredOptions = this.myControl.valueChanges.pipe(
+    this.studentSignupForm = this.fb.group({
+      name: ['', Validators.required],
+      surname:  ['', Validators.required],
+      birthDate: Date.now(),
+
+      email:  ['', [Validators.required, Validators.email]],
+      username: ['', Validators.required],
+      password: ['', [Validators.required,Validators.minLength(4)]],
+
+      index: ['', Validators.required],
+      degreeOfStudy: ['', [Validators.required, autocompleteStringValidator(this.degreeOfStudyOptions)]],
+      department: ['', [Validators.required,autocompleteStringValidator(this.departmentOptions)]]
+    });
+    this.filteredOptionsDegree = this.studentSignupForm.controls['degreeOfStudy'].valueChanges.pipe(
       startWith(''),
-      map(value => this._filter(value))
+      map(value => this._filterDegree(value))
     );
+    this.filteredOptionsDepartment = this.studentSignupForm.controls['department'].valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterDepartment(value))
+    );
+
   }
 
-  onSignup(form: NgForm) {
-    const email = form.value.email;
-    const password = form.value.password;
-    const surname = "default";
-    const name = "default";
-    const address = "default";
-    const username = "default";
-    this.authService.register({
-      name, surname, username,
-      email,
-      address,
-      password
-    });
+  onSignup() {
+      this.authService.register(this.studentSignupForm.value)
+        .subscribe(data =>{
+    this.router.navigate(['/signin']);
+        }, error => console.log('Registration failed. Please try again'));
+
   }
   public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
     this.selectedIndex = tabChangeEvent.index;
@@ -56,9 +87,16 @@ export class SignupStudentComponent implements OnInit {
       }
     }
 
-  private _filter(value: string): string[] {
+  private _filterDegree(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+    return this.degreeOfStudyOptions.filter(option => option.toLowerCase().includes(filterValue));
   }
+
+  private _filterDepartment(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.departmentOptions.filter(option => option.toLowerCase().includes(filterValue));
+  }
+
 }

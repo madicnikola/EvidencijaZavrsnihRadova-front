@@ -1,8 +1,11 @@
 export interface RegisterRequestPayload {
   name: string;
   surname: string;
-  username: string;
+  birthDate: Date;
+
   email: string;
-  address: string;
+  username: string;
   password: string;
+
+  role: string;
 }

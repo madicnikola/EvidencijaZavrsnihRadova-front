@@ -2,10 +2,10 @@ import {EventEmitter, Injectable, Output} from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {RegisterRequestPayload} from "../shared/dto/register-request.payload";
-import {LoginRequestPayload} from "../shared/dto/login-request.payload";
-import {AuthenticationResponse} from "../shared/dto/authentication-response.payload";
+import {LoginRequestPayload} from "./dto/login-request.payload";
+import {AuthenticationResponse} from "./dto/authentication-response.payload";
 import {map} from "rxjs/operators";
+import {RegisterRequestPayload} from "./dto/register-request.payload";
 
 @Injectable()
 export class AuthService {
