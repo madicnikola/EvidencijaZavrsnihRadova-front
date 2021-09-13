@@ -3,4 +3,5 @@ export interface AuthenticationResponse {
   refreshToken: string;
   expiresAt: Date;
   username: string;
+  role: string;
 }

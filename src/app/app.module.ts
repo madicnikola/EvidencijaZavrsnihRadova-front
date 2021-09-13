@@ -7,14 +7,15 @@ import {AppRoutingModule} from "./app-routing.module";
 import {SharedModule} from "./shared/shared.module";
 import {AuthModule} from "./auth/auth.module";
 import {CoreModule} from "./core/core.module";
-import {StudentsComponent} from './students/students.component';
 import {ProfessorsModule} from "./professors/professors.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {StudentThesisModule} from "./student-thesis/student-thesis.module";
+import {StudentsModule} from "./students/students.module";
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    StudentsComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,6 +26,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     AuthModule,
     CoreModule,
     ProfessorsModule,
+    StudentsModule,
+    StudentThesisModule,
   ],
   bootstrap: [AppComponent]
 })

@@ -1,31 +1,73 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../auth.service";
-import {FormControl, NgForm} from "@angular/forms";
+import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, NgForm, Validators} from "@angular/forms";
 import {MatTabChangeEvent} from "@angular/material/tabs";
 import {Observable} from "rxjs";
 import {map, startWith} from "rxjs/operators";
+import {autocompleteStringValidator} from "../../../shared/validators";
+import {STEPPER_GLOBAL_OPTIONS} from "@angular/cdk/stepper";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-signup-professor',
   templateUrl: './signup-professor.component.html',
-  styleUrls: ['./signup-professor.component.css']
+  styleUrls: ['./signup-professor.component.css'],
+  providers: [{
+    provide: STEPPER_GLOBAL_OPTIONS, useValue: {displayDefaultIndicatorType: false}
+  }]
 })
 export class SignupProfessorComponent implements OnInit {
   selectedIndex: number = 0;
   academicRankControl = new FormControl();
   titleControl = new FormControl();
-
-  academicRankOptions: string[] = ['Asistent','Docent','Vanredni profesor', 'Redovni profesor'];
-  titleOptions: string[] = ['prof dr', 'doc', ''];
-
+  isLinear = true;
+  signUpProfessorForm: FormGroup;
+  academicRankOptions: string[] = ['Asistent', 'Docent', 'Vanredni profesor', 'Redovni profesor'];
+  titleOptions: string[] = ['prof dr', 'doc'];
   filteredOptionsRank: Observable<string[]>;
   filteredOptionsTitle: Observable<string[]>;
 
-  constructor(private authService: AuthService) {
+  validation_msgs = {
+    'titleControl': [
+      {type: 'invalidAutocompleteString', message: 'Please click one of the autocomplete options.'},
+      {type: 'required', message: 'required'}
+    ],
+    'academicRankControl': [
+      {type: 'invalidAutocompleteString', message: 'Please click one of the autocomplete options.'},
+      {type: 'required', message: 'required'}
+    ]
+  }
+
+  get formArray(): AbstractControl | null {
+    return this.signUpProfessorForm.get('formArray');
+  }
+
+  constructor(private authService: AuthService,
+              private formBuilder: FormBuilder,
+              private router: Router) {
+
   }
 
 
   ngOnInit(): void {
+    this.signUpProfessorForm = this.formBuilder.group({
+      formArray: this.formBuilder.array([
+        this.formBuilder.group({
+          name: ['', Validators.required],
+          surname: ['', Validators.required],
+          birthDate: Date.now(),
+        }),
+        this.formBuilder.group({
+          email: ['', [Validators.required, Validators.email]],
+          username: ['', Validators.required],
+          password: ['', [Validators.required, Validators.minLength(4)]],
+        }),
+        this.formBuilder.group({
+          academicRank: ['', [Validators.required, autocompleteStringValidator(this.academicRankOptions)]],
+          title: ['', [Validators.required, autocompleteStringValidator(this.titleOptions)]]
+        })
+      ])
+    });
     this.filteredOptionsRank = this.academicRankControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filterDegree(value))
@@ -34,37 +76,22 @@ export class SignupProfessorComponent implements OnInit {
       startWith(''),
       map(value => this._filterDepartment(value))
     );
+
   }
 
-  onSignup(form: NgForm) {
-    // const email = form.value.email;
-    // const password = form.value.password;
-    // const surname = "default";
-    // const name = "default";
-    // const address = "default";
-    // const username = "default";
-    // this.authService.register({
-    //   name, surname, username,
-    //   email,
-    //   password
-    // });
+  onSignup() {
+    const data =
+      {
+        ...this.signUpProfessorForm.get('formArray.0').value,
+        ...this.signUpProfessorForm.get('formArray.1').value,
+        ...this.signUpProfessorForm.get('formArray.2').value,
+      };
+    this.authService.register(data)
+      .subscribe(data => {
+        this.router.navigate(['/signin']);
+      }, error => console.log('Registration failed. Please try again'));
   }
 
-  public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
-    this.selectedIndex = tabChangeEvent.index;
-  }
-
-  nextStep() {
-    if (this.selectedIndex != 3) {
-      this.selectedIndex = this.selectedIndex + 1;
-    }
-  }
-
-  previousStep() {
-    if (this.selectedIndex != 0) {
-      this.selectedIndex = this.selectedIndex - 1;
-    }
-  }
   private _filterDegree(value: string): string[] {
     const filterValue = value.toLowerCase();
 

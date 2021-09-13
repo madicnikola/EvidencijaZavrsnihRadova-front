@@ -1,1 +1,11 @@
-<p>thesis-item works!</p>
+<a
+  style="cursor: pointer;"
+  [routerLink]="[index]"
+  routerLinkActive="active"
+  class="list-group-item clearfix">
+  <div class="pull-left">
+    <h4 class="list-group-item-heading">{{ thesis.title }}</h4>
+    <p class="list-group-item-text">{{ thesis.description }}</p>
+    <p class="list-group-item-text">{{ thesis.faculty }}</p> <span class="text-center">{{thesis.dateOfThesisDefence}}</span>
+  </div>
+</a>

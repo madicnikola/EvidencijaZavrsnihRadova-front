@@ -16,7 +16,7 @@ export class SignupStudentComponent implements OnInit {
   selectedIndex: number = 0;
 
   degreeOfStudyOptions: string[] = ['Osnovne Akademske Studije', 'Master Studije', 'Doktorske Studije'];
-  departmentOptions: string[] = ['ISIT', 'Menadzment', 'ISIT- daljina'];
+  departmentOptions: string[] = ['Informacioni sistemi i tehnologije', 'Menadžment', 'Informacioni sistemi i tehnologije – studije na daljinu'];
 
   filteredOptionsDegree: Observable<string[]>;
   filteredOptionsDepartment: Observable<string[]>;

@@ -10,7 +10,6 @@ export class ThesesComponent implements OnInit {
 
   constructor(private router: Router) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
   }
-
 }

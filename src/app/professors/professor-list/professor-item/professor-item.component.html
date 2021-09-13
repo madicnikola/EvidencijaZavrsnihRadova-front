@@ -1,1 +1,10 @@
-<p>professor-item works!</p>
+<a
+  style="cursor: pointer;"
+  [routerLink]="[index]"
+  routerLinkActive="active"
+  class="list-group-item clearfix">
+  <div class="pull-left">
+    <h4 class="list-group-item-heading">{{professor.title.name}} {{ professor.name }} {{professor.surname}}</h4>
+    <p class="list-group-item-text">{{ professor.userProfile.email }}</p>
+  </div>
+</a>

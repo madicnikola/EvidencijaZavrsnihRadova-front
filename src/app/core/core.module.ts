@@ -5,12 +5,13 @@ import {AppRoutingModule} from '../app-routing.module';
 import {SharedModule} from '../shared/shared.module';
 import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {AuthInterceptor} from '../shared/auth.interceptor';
-import {DataStorageService} from "../shared/data-storage.service";
 import {AuthService} from "../auth/auth.service";
 import {LoggingInterceptor} from "../shared/logging.interceptor";
 import {ErrorInterceptor} from "../shared/error.interceptor";
 import {MAT_DATE_LOCALE} from "@angular/material/core";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {ThesisModule} from "../theses/thesis.module";
+import {DataService} from "../shared/data.service";
 
 @NgModule({
   declarations: [
@@ -21,13 +22,14 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
     SharedModule,
     AppRoutingModule,
     NgbModule,
+    ThesisModule,
   ],
   exports: [
     AppRoutingModule,
     HeaderComponent,
   ],
   providers: [
-    DataStorageService,
+    DataService,
     AuthService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true},

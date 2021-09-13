@@ -6,6 +6,12 @@ import {ProfessorsComponent} from "./professors.component";
 import {ProfessorListComponent} from "./professor-list/professor-list.component";
 import { ProfessorDetailComponent } from './professor-detail/professor-detail.component';
 import { ProfessorItemComponent } from './professor-list/professor-item/professor-item.component';
+import {SearchBarModule} from "../shared/search-bar/search-bar.module";
+import {Ng2SearchPipeModule} from "ng2-search-filter";
+import {MatIconModule} from "@angular/material/icon";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInput, MatInputModule} from "@angular/material/input";
+import {MatButtonModule} from "@angular/material/button";
 
 
 @NgModule({
@@ -16,13 +22,20 @@ import { ProfessorItemComponent } from './professor-list/professor-item/professo
     ProfessorItemComponent,
   ],
   exports: [
-    ProfessorItemComponent
+    ProfessorItemComponent,
+    ProfessorsComponent
   ],
   imports: [
     SharedModule,
     ProfessorsRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    SearchBarModule,
+    Ng2SearchPipeModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
   ]
 })
 export class ProfessorsModule {

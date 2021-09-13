@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {AuthService} from "../../auth/auth.service";
-import {DataStorageService} from "../../shared/data-storage.service";
+import {DataService} from "../../shared/data.service";
 
 @Component({
   selector: 'app-header',
@@ -9,7 +9,7 @@ import {DataStorageService} from "../../shared/data-storage.service";
 })
 export class HeaderComponent {
 
-  constructor(private dataStorageService: DataStorageService,
+  constructor(private dataStorageService: DataService,
               public authService: AuthService) {
   }
 

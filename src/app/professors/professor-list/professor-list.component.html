@@ -1,13 +1,18 @@
 <div class="row">
   <div class="col-xs-12">
 <!--    <button class="btn btn-success" (click)="onNewRecipe()">New Recipe</button>-->
+<!--    <app-search-bar (onSelectedOption)="onSelectedOption($event)"></app-search-bar>-->
+    <mat-form-field class="example-full-width" style="width: 100%" appearance="outline">
+      <input matInput type="text" placeholder="Enter title" aria-label="Number" [(ngModel)]="searchText">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
   </div>
 </div>
 <hr>
 <div class="row">
   <div class="col-xs-12">
     <app-professor-item
-      *ngFor="let professorEl of professors; let i = index"
+      *ngFor="let professorEl of professors | filter:searchText; let i = index"
       [professor]="professorEl"
       [index]="i"></app-professor-item>
   </div>

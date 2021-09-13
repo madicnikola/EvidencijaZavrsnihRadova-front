@@ -1,89 +1,113 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <form (ngSubmit)="onSignup(f)" #f="ngForm">
-          <mat-tab-group [(selectedIndex)]="selectedIndex">
-            <mat-tab label="General info">
-              <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" ngModel="" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="surname">Surname</label>
-                <input type="text" id="surname" name="surname" ngModel="" class="form-control">
-              </div>
-              <div class="form-group">
-                <!--              <label for="birthDate" class="d-block">Datum Rodjenja</label>-->
-                <mat-form-field appearance="fill">
-                  <mat-label>Datum Rodjenja</mat-label>
-                  <input matInput id="birthDate" [matDatepicker]="picker">
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-              </div>
-              <div style="display: flex; flex-direction: row-reverse">
-                <button class="btn btn-primary" style="margin: 1px;" (click)="nextStep()">Dalje</button>
-              </div>
-            </mat-tab>
-            <mat-tab label="Account Info">
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" ngModel="" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" ngModel="" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" ngModel="" class="form-control">
-              </div>
-              <div style="display: flex; flex-direction: row-reverse">
-                <button class="btn btn-primary" style="margin: 1px;" (click)="nextStep()">Dalje</button>
-                <button class="btn btn-primary" style="margin: 1px;" (click)="previousStep()">Nazad</button>
-              </div>
-            </mat-tab>
-            <mat-tab label="Third">
-              <div class="form-group">
-                <mat-form-field class="example-full-width" appearance="fill">
-                  <mat-label>Zvanje</mat-label>
-                  <input type="text"
-                         placeholder="Izaberi"
-                         aria-label="Zvanje"
-                         matInput
-                         [formControl]="academicRankControl"
-                         [matAutocomplete]="auto1">
-                  <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
-                    <mat-option *ngFor="let optionRank of filteredOptionsRank | async" [value]="optionRank">
-                      {{optionRank}}
-                    </mat-option>
-                  </mat-autocomplete>
-                </mat-form-field>
-              </div>
+      <form [formGroup]="signUpProfessorForm" (ngSubmit)="onSignup()">
+        <mat-stepper formArrayName="formArray" [linear]="isLinear">
+          <mat-step label="Osnovni podaci" formGroupName="0" [stepControl]="formArray?.get([0])">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Ime</mat-label>
+              <input matInput placeholder="" value="" formControlName="title">
+              <mat-error>
+                Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Prezime</mat-label>
+              <input matInput placeholder="" value="" formControlName="surname">
+              <mat-error>
+                Surname is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Datum Rodjenja</mat-label>
+              <input matInput id="birthDate" [matDatepicker]="picker" formControlName="birthDate">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error>
+                Birthdate is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <div style="display: flex; flex-direction: row-reverse">
+              <button mat-raised-button class="btn" matStepperNext type="button">Dalje</button>
+            </div>
+          </mat-step>
 
-              <div class="form-group">
-                <mat-form-field class="example-full-width" appearance="fill">
-                  <mat-label>Titula</mat-label>
-                  <input type="text"
-                         placeholder="Izaberi"
-                         aria-label="Titula"
-                         matInput
-                         [formControl]="titleControl"
-                         [matAutocomplete]="auto2">
-                  <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
-                    <mat-option *ngFor="let optionTitle of filteredOptionsTitle | async" [value]="optionTitle">
-                      {{optionTitle}}
-                    </mat-option>
-                  </mat-autocomplete>
-                </mat-form-field>
-              </div>
-              <div style="display: flex; flex-direction: row-reverse">
-                <button class="btn btn-primary" style="margin: 1px;" type="submit">Register</button>
-                <button class="btn btn-primary" style="margin: 1px;" (click)="previousStep()">Nazad</button>
-              </div>
-            </mat-tab>
-          </mat-tab-group>
+          <mat-step label="Korisnički nalog" formGroupName="1" [stepControl]="formArray?.get([1])">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Imejl</mat-label>
+              <input type="email" matInput placeholder="" value="" formControlName="email">
+              <mat-error>
+                <!--                *ngIf="signUpProfessorForm.controls['email'].hasError('email') && !signUpProfessorForm.controls['email'].hasError('required')">-->
+                Please enter a valid email address
+              </mat-error>
+              <!--              <mat-error *ngIf="signUpProfessorForm.controls['email'].hasError('required')">-->
+              <mat-error>
+                Email is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Korisničko Ime</mat-label>
+              <input matInput placeholder="" value="" formControlName="username">
+              <!--              <mat-error *ngIf="signUpProfessorForm.controls['username'].hasError('required')">-->
+              <mat-error>
+                Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Šifra</mat-label>
+              <input type="password" matInput placeholder="" value="" formControlName="password">
+              <!--              <mat-error *ngIf="signUpProfessorForm.controls['password'].hasError('required')">-->
+              <mat-error>
+                Name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <div style="display: flex; flex-direction: row-reverse">
+              <button mat-raised-button class="btn" matStepperNext type="button">Dalje</button>
+              <button mat-raised-button class="btn" matStepperPrevious type="button">Nazad</button>
+            </div>
+          </mat-step>
+
+          <mat-step label="Zvanje" formGroupName="2" [stepControl]="formArray?.get([2])">
+            <mat-form-field class="row example-full-width" appearance="fill">
+              <mat-label>Zvanje</mat-label>
+              <input type="text"
+                     placeholder="Izaberi"
+                     aria-label="Zvanje"
+                     matInput
+                     formControlName="academicRank"
+                     [matAutocomplete]="auto1">
+              <mat-autocomplete autoActiveFirstOption #auto1="matAutocomplete">
+                <mat-option *ngFor="let optionRank of filteredOptionsRank | async" [value]="optionRank">
+                  {{optionRank}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+
+            <mat-form-field class="row example-full-width" appearance="fill">
+              <mat-label>Titula</mat-label>
+              <input type="text"
+                     placeholder="Izaberi"
+                     aria-label="Titula"
+                     matInput
+                     formControlName="title"
+                     [matAutocomplete]="auto2">
+              <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
+                <mat-option *ngFor="let optionTitle of filteredOptionsTitle | async" [value]="optionTitle">
+                  {{optionTitle}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+            <div style="display: flex; flex-direction: row-reverse">
+              <button mat-raised-button class="btn" style="margin: 1px;" type="submit"
+                      [disabled]="!signUpProfessorForm.valid">Register
+              </button>
+              <button mat-raised-button class="btn" matStepperPrevious style="margin: 1px;" type="button">Nazad</button>
+            </div>
+          </mat-step>
+
+        </mat-stepper>
       </form>
+
     </div>
   </div>
 </div>

@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {FormGroup, NgForm} from '@angular/forms';
+import {FormBuilder, FormGroup, NgForm} from '@angular/forms';
 import {AuthService} from "../auth.service";
-import {LoginRequestPayload} from "../dto/login-request.payload";
+import {LoginRequestPayload} from "../../shared/dto/login-request.payload";
 import {throwError} from "rxjs";
 
 @Component({
@@ -16,18 +16,21 @@ export class SigninComponent implements OnInit {
   private isError: boolean;
 
   constructor(private authService: AuthService,
-              private router: Router) {
+              private router: Router,
+              private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
+    this.loginForm = this.fb.group(
+      {
+        username: '',
+        password: '',
+      });
   }
 
 
-  onSignin(form: NgForm) {
-    this.loginRequestPayload = {
-      username: form.value.email,
-      password: form.value.password
-    };
+  onSignin() {
+    this.loginRequestPayload = this.loginForm.value;
 
     this.authService.login(this.loginRequestPayload).subscribe(data => {
       this.isError = false;
