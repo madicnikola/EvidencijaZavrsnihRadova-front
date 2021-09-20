@@ -8,6 +8,11 @@ import {map} from "rxjs/operators";
 import {RegisterRequestPayload} from "../shared/dto/register-request.payload";
 import {environment} from "../../environments/environment";
 
+
+const loginUrl = `${environment.apiUrl}/auth/login`;
+const signupUrl = `${environment.apiUrl}/auth/signup`;
+
+
 @Injectable()
 export class AuthService {
 
@@ -25,7 +30,7 @@ export class AuthService {
   }
 
   login(loginRequestPayload: LoginRequestPayload): Observable<boolean> {
-    return this.client.post<AuthenticationResponse>(`${environment.apiUrl}/auth/login`,
+    return this.client.post<AuthenticationResponse>(loginUrl,
       loginRequestPayload).pipe(map(data => {
       this.loggedIn.emit(true);
       this.username.emit(data.username);
@@ -39,7 +44,7 @@ export class AuthService {
   }
 
   register(registerRequestPayload: RegisterRequestPayload): Observable<any> {
-    return this.client.post(`${environment.apiUrl}/auth/signup`, registerRequestPayload, {responseType: 'text'});
+    return this.client.post(signupUrl, registerRequestPayload, {responseType: 'text'});
   }
 
   public get userValue(): AuthenticationResponse {
@@ -59,8 +64,11 @@ export class AuthService {
   }
 
   isAuthorized(role: string) {
-    if(this.userValue){
-      return this.userValue.role.toUpperCase() == role;
+    if (this.userValue) {
+      return this.userValue.role.toUpperCase() == role.toUpperCase();
+    } else if (localStorage.getItem('user')) {
+      const user = JSON.parse(localStorage.getItem('user'));
+      return user.role.toUpperCase() == role.toUpperCase();
     }
     return false;
   }

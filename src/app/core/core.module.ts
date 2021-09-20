@@ -12,6 +12,7 @@ import {MAT_DATE_LOCALE} from "@angular/material/core";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {ThesisModule} from "../theses/thesis.module";
 import {DataService} from "../shared/data.service";
+import {DatePipe} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -31,10 +32,11 @@ import {DataService} from "../shared/data.service";
   providers: [
     DataService,
     AuthService,
+    DatePipe,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true},
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}
   ]
 })
 export class CoreModule {

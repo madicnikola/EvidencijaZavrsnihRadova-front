@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ThesesService} from "../theses.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Thesis} from "../../shared/model/thesis.model";
@@ -15,16 +15,16 @@ export class ThesisDetailComponent implements OnInit {
   constructor(private thesisService: ThesesService,
               private router: Router,
               private route: ActivatedRoute
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
-    this.route.params
-      .subscribe(
-        params => {
-          this.id = +params['id'];
-          this.thesis = this.thesisService.getThesis(this.id);
-        }
-      )
+    this.route.params.subscribe(
+      params => {
+        this.id = +params['id'];
+        this.thesis = this.thesisService.getThesis(this.id);
+      });
+
   }
 
 }

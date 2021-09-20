@@ -9,10 +9,8 @@ const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   {path:'professors', loadChildren: () => import('./professors/professors.module').then(m => m.ProfessorsModule), canLoad:[AuthGuard]},
   {path:'theses', loadChildren: () => import('./theses/thesis.module').then(m => m.ThesisModule)},
-  {path:'thesis', loadChildren: () => import('./student-thesis/student-thesis.module').then(m => m.StudentThesisModule),
-  canActivate:[AuthGuard],
-  data: {roles: [Role.Student]}}
-
+  {path:'thesis', loadChildren: () => import('./student-thesis/student-thesis.module').then(m => m.StudentThesisModule), canActivate:[AuthGuard], data: {roles: [Role.Student]}},
+  {path:'notifications', loadChildren: () => import('./notifications/notifications.module').then(m => m.NotificationsModule)}
 ];
 
 @NgModule({

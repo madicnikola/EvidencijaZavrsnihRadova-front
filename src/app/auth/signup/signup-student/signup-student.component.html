@@ -4,21 +4,21 @@
       <form [formGroup]="studentSignupForm" (ngSubmit)="onSignup()">
         <mat-tab-group [(selectedIndex)]="selectedIndex">
           <mat-tab label="Osnovni podaci">
-            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-form-field class="full-width" appearance="fill">
               <mat-label>Ime</mat-label>
-              <input matInput placeholder="" value="" formControlName="title">
+              <input matInput placeholder="" value="" formControlName="name">
               <mat-error *ngIf="studentSignupForm.controls['name'].hasError('required')">
                 Name is <strong>required</strong>
               </mat-error>
             </mat-form-field>
-            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-form-field class="full-width" appearance="fill">
               <mat-label>Prezime</mat-label>
               <input matInput placeholder="" value="" formControlName="surname">
               <mat-error *ngIf="studentSignupForm.controls['surname'].hasError('required')">
                 Surname is <strong>required</strong>
               </mat-error>
             </mat-form-field>
-            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-form-field class="full-width" appearance="fill">
               <mat-label>Datum Rodjenja</mat-label>
               <input matInput id="birthDate" [matDatepicker]="picker" formControlName="birthDate">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -33,7 +33,7 @@
           </mat-tab>
 
           <mat-tab label="Korisnički nalog">
-            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-form-field class="full-width" appearance="fill">
               <mat-label>Imejl</mat-label>
               <input type="email" matInput placeholder="" value="" formControlName="email">
               <mat-error *ngIf="studentSignupForm.controls['email'].hasError('email') && !studentSignupForm.controls['email'].hasError('required')">
@@ -43,14 +43,14 @@
                 Email is <strong>required</strong>
               </mat-error>
             </mat-form-field>
-            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-form-field class="full-width" appearance="fill">
               <mat-label>Korisničko Ime</mat-label>
               <input matInput placeholder="" value="" formControlName="username">
               <mat-error *ngIf="studentSignupForm.controls['name'].hasError('required')">
                 Name is <strong>required</strong>
               </mat-error>
             </mat-form-field>
-            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-form-field class="full-width" appearance="fill">
               <mat-label>Šifra</mat-label>
               <input type="password" matInput placeholder="" value="" formControlName="password">
               <mat-error *ngIf="studentSignupForm.controls['name'].hasError('required')">
@@ -64,14 +64,14 @@
           </mat-tab>
 
           <mat-tab label="Student">
-            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-form-field class="full-width" appearance="fill">
               <mat-label>Broj Indeksa</mat-label>
               <input matInput placeholder="" value="" formControlName="index">
               <mat-error *ngIf="studentSignupForm.controls['name'].hasError('required')">
                 Name is <strong>required</strong>
               </mat-error>
             </mat-form-field>
-            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-form-field class="full-width" appearance="fill">
               <mat-label>Stepen Studija</mat-label>
               <input type="text"
                      placeholder="Izaberi"
@@ -91,7 +91,7 @@
               </mat-error>
             </mat-form-field>
 
-            <mat-form-field class="example-full-width" appearance="fill">
+            <mat-form-field class="full-width" appearance="fill">
               <mat-label>Smer</mat-label>
               <input type="text"
                      placeholder="Izaberi"

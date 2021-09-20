@@ -11,6 +11,7 @@ import {ProfessorsModule} from "./professors/professors.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {StudentThesisModule} from "./student-thesis/student-thesis.module";
 import {StudentsModule} from "./students/students.module";
+import {NotificationsModule} from "./notifications/notifications.module";
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import {StudentsModule} from "./students/students.module";
     ProfessorsModule,
     StudentsModule,
     StudentThesisModule,
+    NotificationsModule
   ],
   bootstrap: [AppComponent]
 })

@@ -1,3 +1,2 @@
-<ng-template [ngIf]="isJustStarted()">
-  <app-student-thesis-start></app-student-thesis-start>
-</ng-template>
+  <app-student-thesis-start *ngIf="isJustStarted()"></app-student-thesis-start>
+  <app-student-thesis-in-progress *ngIf="isInProgress()" [thesis]="thesis"></app-student-thesis-in-progress>

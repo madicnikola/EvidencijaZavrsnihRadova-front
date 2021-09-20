@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Professor} from "../../../shared/model/professor.model";
+import {ProfessorPayload} from "../../../shared/dto/professor.payload";
 
 @Component({
   selector: 'app-professor-item',
@@ -7,7 +7,7 @@ import {Professor} from "../../../shared/model/professor.model";
   styleUrls: ['./professor-item.component.css']
 })
 export class ProfessorItemComponent implements OnInit {
-  @Input() professor: Professor;
+  @Input() professor: ProfessorPayload;
   @Input() index: number;
   constructor() { }
 

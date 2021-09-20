@@ -1,10 +1,4 @@
-import {UserProfilePayload} from "../dto/userProfile.payload";
-
-export interface UserProfile {
-  userProfileId: bigint,
-  "username": string,
-  "email": string,
-}
+import {UserProfile} from "./user.model";
 
 export interface Person {
   personId: bigint;

@@ -1,18 +1,19 @@
 import {Injectable} from '@angular/core';
 import {Professor} from "../shared/model/professor.model";
 import {Subject} from "rxjs";
+import {ProfessorPayload} from "../shared/dto/professor.payload";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfessorService {
-  profChanged = new Subject<Professor[]>();
-  private professors: Professor[] = [];
+  profChanged = new Subject<ProfessorPayload[]>();
+  private professors: ProfessorPayload[] = [];
 
   constructor() {
   }
 
-  setProfessors(professors: Professor[]) {
+  setProfessors(professors: ProfessorPayload[]) {
     this.professors = professors;
     this.profChanged.next(professors.slice());
   }

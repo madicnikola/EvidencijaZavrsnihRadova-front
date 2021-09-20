@@ -1,2 +1,3 @@
 <p>professor-detail works!</p>
-<button mat-raised-button>Posalji zahtev za temu</button>
+<button mat-raised-button (click)="onRequest()" [disabled]="messageReceived">Posalji zahtev za temu</button>
+<p *ngIf="messageReceived">{{message}}</p>
