@@ -1,4 +1,5 @@
 import {Student} from "./student.model";
+import {Board} from "../dto/thesis.payload";
 
 export enum VisibilityStatus {
   PRIVATE = 'PRIVATE',
@@ -26,4 +27,7 @@ export interface Thesis {
   progressStatus: ProgressStatus;
   visibilityStatus: VisibilityStatus;
   student: Student;
+  board: Board;
+  grade: number;
+  dateOfSubmission: Date;
 }

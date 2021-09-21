@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, OnInit} from '@angular/core';
+import {AfterContentInit, Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ThesisPayload} from "../../../shared/dto/thesis.payload";
 import {NotificationPayload} from "../../../shared/dto/Notification.payload";
@@ -16,7 +16,7 @@ export class NotificationDetailsStudentComponent implements OnInit, AfterContent
   notif: NotificationPayload;
   id: number;
   thesisForm: FormGroup;
-  thesis: ThesisPayload;
+  @Input() thesis: ThesisPayload;
   selectedIndex: number;
 
   constructor(private fb: FormBuilder,
@@ -33,28 +33,12 @@ export class NotificationDetailsStudentComponent implements OnInit, AfterContent
       params => {
         this.id = +params['id'];
         this.notif = this.notifService.getNotification(this.id);
-        this.fetchThesisData();
-        this.setThesis();
         this.patchValue();
       });
-    this.setThesis();
   }
 
   ngAfterContentInit(): void {
     this.patchValue();
-  }
-
-
-  private fetchThesisData() {
-    this.dataService.getThesis();
-  }
-
-
-  private setThesis() {
-    this.notifService.thesisChanged.subscribe(value => {
-      this.thesis = value;
-    });
-    this.thesis = this.notifService.getThesis();
   }
 
   private buildForm() {
@@ -72,12 +56,14 @@ export class NotificationDetailsStudentComponent implements OnInit, AfterContent
 
   private patchValue() {
     const pipe = new DatePipe('en-GB short');
-    this.thesisForm.patchValue({
-      ...this.thesis,
-      dateOfThesisDefence: pipe.transform(this.thesis.dateOfThesisDefence),
-      dateOfReception: pipe.transform(this.thesis.dateOfReception),
-      dateOfBoardFormation: pipe.transform(this.thesis.dateOfBoardFormation),
-      dateOfSubmission: pipe.transform(this.thesis.dateOfSubmission),
-    });
+    if (this.thesis) {
+      this.thesisForm.patchValue({
+        ...this.thesis,
+        dateOfThesisDefence: pipe.transform(this.thesis.dateOfThesisDefence),
+        dateOfReception: pipe.transform(this.thesis.dateOfReception),
+        dateOfBoardFormation: pipe.transform(this.thesis.dateOfBoardFormation),
+        dateOfSubmission: pipe.transform(this.thesis.dateOfSubmission),
+      });
+    }
   }
 }

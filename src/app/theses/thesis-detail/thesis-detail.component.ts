@@ -1,7 +1,7 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ThesesService} from "../theses.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Thesis} from "../../shared/model/thesis.model";
+import {ThesisPayload} from "../../shared/dto/thesis.payload";
 
 @Component({
   selector: 'app-thesis-detail',
@@ -9,7 +9,7 @@ import {Thesis} from "../../shared/model/thesis.model";
   styleUrls: ['./thesis-detail.component.css']
 })
 export class ThesisDetailComponent implements OnInit {
-  thesis: Thesis;
+  thesis: ThesisPayload;
   id: number;
 
   constructor(private thesisService: ThesesService,

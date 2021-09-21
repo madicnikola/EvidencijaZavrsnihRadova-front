@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Thesis} from "../../../shared/model/thesis.model";
+import {ThesisPayload} from "../../../shared/dto/thesis.payload";
 
 @Component({
   selector: 'app-thesis-item',
@@ -7,7 +7,7 @@ import {Thesis} from "../../../shared/model/thesis.model";
   styleUrls: ['./thesis-item.component.css']
 })
 export class ThesisItemComponent implements OnInit {
-  @Input() thesis: Thesis;
+  @Input() thesis: ThesisPayload;
   @Input() index: number;
 
   constructor() { }

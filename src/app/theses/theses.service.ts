@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Subject} from "rxjs";
 import {Thesis} from "../shared/model/thesis.model";
+import {ThesisPayload} from "../shared/dto/thesis.payload";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class ThesesService {
 
   constructor() { }
 
-  setTheses(theses: Thesis[]) {
+  setTheses(theses: ThesisPayload[]) {
     this.theses = theses;
     this.thesesChanged.next(this.theses.slice());
 

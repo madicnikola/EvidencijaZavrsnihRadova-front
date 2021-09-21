@@ -17,11 +17,11 @@
     <p>Datumi</p>
     <mat-form-field class="full-width" appearance="outline">
       <mat-label>Prijava</mat-label>
-      <input matInput placeholder="" formControlName="dateOfReception"  readonly>
+      <input matInput placeholder="" formControlName="dateOfReception" readonly>
     </mat-form-field>
     <mat-form-field class="full-width" appearance="outline">
       <mat-label>Predaja</mat-label>
-      <input matInput  placeholder="" formControlName="dateOfSubmission" readonly>
+      <input matInput placeholder="" formControlName="dateOfSubmission" readonly>
     </mat-form-field>
     <mat-form-field class="full-width" appearance="outline">
       <mat-label>Odbrana</mat-label>
@@ -29,7 +29,9 @@
     </mat-form-field>
     <mat-tab-group [(selectedIndex)]="selectedIndex">
       <mat-tab label="Mentor">
-
+        <ng-template [ngIf]="mentor">
+          {{mentor.title.name}} {{mentor.name}} {{mentor.surname}}
+        </ng-template>
       </mat-tab>
       <mat-tab label="Odbrana">
 
@@ -38,4 +40,6 @@
     </mat-tab-group>
   </form>
 </div>
+<hr>
+<app-file-upload [thesis]="thesis"></app-file-upload>
 

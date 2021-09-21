@@ -3,6 +3,7 @@ import {DataService} from "../../shared/data.service";
 import {Subscription} from "rxjs";
 import {ThesesService} from "../theses.service";
 import {Thesis} from "../../shared/model/thesis.model";
+import {ThesisPayload} from "../../shared/dto/thesis.payload";
 
 @Component({
   selector: 'app-thesis-list',

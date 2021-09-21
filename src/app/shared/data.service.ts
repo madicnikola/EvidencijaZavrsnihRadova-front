@@ -24,7 +24,8 @@ const notifsDataUrl = `${environment.apiUrl}/notification/user`;
 const titleRequestUrl = `${environment.apiUrl}/graduate-thesis/request-title`;
 const titleSetUrl = `${environment.apiUrl}/graduate-thesis/set-title`;
 const MyThesisUrl = `${environment.apiUrl}/graduate-thesis/my-thesis`;
-const StudentUrl = `${environment.apiUrl}/student/`;
+const StudentUrl = `${environment.apiUrl}/student/`
+const ProfessorUrl = `${environment.apiUrl}/professor/`;
 
 
 @Injectable({
@@ -238,4 +239,20 @@ export class DataService {
     });
   }
 
+  getMentor(mentorId: number) {
+    return this.http.get<ProfessorPayload>(ProfessorUrl + mentorId, {
+      observe: 'body',
+      responseType: 'json'
+    }).pipe(catchError(err => {
+      console.log('error caught');
+      this.dialog.open(DialogComponent, {
+        data: {title: "Error", message: err}
+      });
+      return throwError(err);
+    }), map(value => {
+      // do here
+
+      return value;
+    }));
+  }
 }

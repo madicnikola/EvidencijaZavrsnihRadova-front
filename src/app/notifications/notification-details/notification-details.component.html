@@ -1,3 +1,3 @@
 <app-notification-details-professor *ngIf="authService.isAuthorized('Professor')"></app-notification-details-professor>
 
-<app-notification-details-student *ngIf="authService.isAuthorized('Student')"></app-notification-details-student>
+<app-notification-details-student *ngIf="authService.isAuthorized('Student')" [thesis]="thesis"></app-notification-details-student>

@@ -17,7 +17,6 @@ import {Router} from "@angular/router";
   }]
 })
 export class SignupProfessorComponent implements OnInit {
-  selectedIndex: number = 0;
   academicRankControl = new FormControl();
   titleControl = new FormControl();
   isLinear = true;
