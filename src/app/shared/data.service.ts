@@ -16,6 +16,8 @@ import {NotificationService} from "../notifications/notification.service";
 import {UserProfilePayload} from "./dto/userProfile.payload";
 import {Student} from "./model/student.model";
 import {ThesisPayload} from "./dto/thesis.payload";
+import {StudentPayload} from "./dto/student.payload";
+import {StudentsService} from "../students/students.service";
 
 
 const publishedThesesDataUrl = `${environment.apiUrl}/graduate-thesis/published`;
@@ -24,7 +26,7 @@ const notifsDataUrl = `${environment.apiUrl}/notification/user`;
 const titleRequestUrl = `${environment.apiUrl}/graduate-thesis/request-title`;
 const titleSetUrl = `${environment.apiUrl}/graduate-thesis/set-title`;
 const MyThesisUrl = `${environment.apiUrl}/graduate-thesis/my-thesis`;
-const StudentUrl = `${environment.apiUrl}/student/`
+const StudentUrl = `${environment.apiUrl}/students/`;
 const ProfessorUrl = `${environment.apiUrl}/professor/`;
 
 
@@ -43,6 +45,7 @@ export class DataService {
     private studentThesisService: StudentThesisService,
     private professorService: ProfessorService,
     private notifService: NotificationService,
+    private studentsService: StudentsService,
     public dialog: MatDialog
   ) {
   }
@@ -254,5 +257,23 @@ export class DataService {
 
       return value;
     }));
+  }
+
+  getMyStudents() {
+    this.http.get<StudentPayload[]>(StudentUrl, {
+      observe: 'body',
+      responseType: 'json'
+    }).pipe(
+      map(students => {
+        console.log(students);
+        //for (let thesis of theses){
+        //
+        //}
+        return students;
+      })).subscribe(
+      (students) => {
+        this.studentsService.setstudents(students);
+      }
+    );
   }
 }
