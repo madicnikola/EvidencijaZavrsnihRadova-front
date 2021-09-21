@@ -1,0 +1,22 @@
+a{
+text-decoration: none;
+}
+a,h4,p{
+  color:black;
+}
+h4 {
+  text-transform:initial;
+  color:#c3512f;
+}
+a.list-group-item.clearfix.list-theses-item-custom {
+  margin:15px 0;
+  background-color:#f0f0f0;
+
+}
+a.list-group-item.clearfix.list-theses-item-custom:hover {
+  margin:15px 0;
+  background-color:  #f6f6f6;
+}
+span.text-center.list-text-date{
+  font-size:15px;
+}
