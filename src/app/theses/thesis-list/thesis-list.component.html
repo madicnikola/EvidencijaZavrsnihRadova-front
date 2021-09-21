@@ -1,13 +1,13 @@
 <div class="row">
   <div class="col-lg-12">
     <!--      <app-search-bar (onSelectedOption)="onSelectedOption($event)"></app-search-bar>-->
-    <mat-form-field class="full-width" style="width: 100%" appearance="outline">
+    <mat-form-field class="full-width search-custom" style="width: 100%" appearance="outline">
       <input matInput type="text" placeholder="Enter title" aria-label="Number" [(ngModel)]="searchText">
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
   </div>
 </div>
-<hr>
+
 <div class="row">
   <div class="col-md-12">
     <app-thesis-item
