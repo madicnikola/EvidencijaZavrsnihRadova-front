@@ -11,6 +11,7 @@ import {StudentsRoutingModule} from "./students-routing.module";
 import {SharedModule} from "../shared/shared.module";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
+import {StudentThesisModule} from "../student-thesis/student-thesis.module";
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import {MatInputModule} from "@angular/material/input";
     MatInputModule,
     ReactiveFormsModule,
     FormsModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    StudentThesisModule
   ]
 })
 export class StudentsModule {

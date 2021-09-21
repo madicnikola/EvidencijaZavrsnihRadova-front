@@ -16,6 +16,7 @@ import {NotificationDetailsComponent} from "./notification-details/notification-
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
+import {StudentThesisModule} from "../student-thesis/student-thesis.module";
 
 
 @NgModule({
@@ -27,20 +28,21 @@ import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
     NotificationDetailsProfessorComponent,
     NotificationDetailsStudentComponent
   ],
-  imports: [
-    SharedModule,
-    NotificationsRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    Ng2SearchPipeModule,
-    MatTabsModule,
-    MatDatepickerModule,
-    NgbDatepickerModule,
-  ]
+    imports: [
+        SharedModule,
+        NotificationsRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatIconModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        Ng2SearchPipeModule,
+        MatTabsModule,
+        MatDatepickerModule,
+        NgbDatepickerModule,
+        StudentThesisModule,
+    ]
 })
 export class NotificationsModule {
 }

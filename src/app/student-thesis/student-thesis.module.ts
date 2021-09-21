@@ -9,14 +9,21 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatInputModule} from "@angular/material/input";
+import { ThesisDetailViewComponent } from './thesis-detail-view/thesis-detail-view.component';
+import {MatCardModule} from "@angular/material/card";
 
 
 
 @NgModule({
-  declarations: [
+    declarations: [
+        StudentThesisComponent,
+        StudentThesisStartComponent,
+        StudentThesisInProgressComponent,
+        ThesisDetailViewComponent
+    ],
+  exports: [
     StudentThesisComponent,
-    StudentThesisStartComponent,
-    StudentThesisInProgressComponent
+    ThesisDetailViewComponent
   ],
   imports: [
     SharedModule,
@@ -27,6 +34,7 @@ import {MatInputModule} from "@angular/material/input";
     MatInputModule,
     ProfessorsModule,
     MatTabsModule,
+    MatCardModule,
 
   ]
 })

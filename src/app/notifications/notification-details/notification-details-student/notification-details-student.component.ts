@@ -12,12 +12,10 @@ import {DatePipe} from "@angular/common";
   templateUrl: './notification-details-student.component.html',
   styleUrls: ['./notification-details-student.component.css']
 })
-export class NotificationDetailsStudentComponent implements OnInit, AfterContentInit {
+export class NotificationDetailsStudentComponent implements OnInit {
   notif: NotificationPayload;
   id: number;
-  thesisForm: FormGroup;
   @Input() thesis: ThesisPayload;
-  selectedIndex: number;
 
   constructor(private fb: FormBuilder,
               private dataService: DataService,
@@ -26,44 +24,11 @@ export class NotificationDetailsStudentComponent implements OnInit, AfterContent
 
   }
 
-
   ngOnInit(): void {
-    this.buildForm();
     this.route.params.subscribe(
       params => {
         this.id = +params['id'];
         this.notif = this.notifService.getNotification(this.id);
-        this.patchValue();
       });
-  }
-
-  ngAfterContentInit(): void {
-    this.patchValue();
-  }
-
-  private buildForm() {
-    this.thesisForm = this.fb.group(
-      {
-        title: "",
-        grade: "",
-        dateOfThesisDefence: "",
-        dateOfReception: "",
-        dateOfBoardFormation: "",
-        dateThesisDefended: "",
-        dateOfSubmission: ""
-      });
-  }
-
-  private patchValue() {
-    const pipe = new DatePipe('en-GB short');
-    if (this.thesis) {
-      this.thesisForm.patchValue({
-        ...this.thesis,
-        dateOfThesisDefence: pipe.transform(this.thesis.dateOfThesisDefence),
-        dateOfReception: pipe.transform(this.thesis.dateOfReception),
-        dateOfBoardFormation: pipe.transform(this.thesis.dateOfBoardFormation),
-        dateOfSubmission: pipe.transform(this.thesis.dateOfSubmission),
-      });
-    }
   }
 }

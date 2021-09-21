@@ -25,9 +25,11 @@ const professorsDataUrl = `${environment.apiUrl}/professor/all`;
 const notifsDataUrl = `${environment.apiUrl}/notification/user`;
 const titleRequestUrl = `${environment.apiUrl}/graduate-thesis/request-title`;
 const titleSetUrl = `${environment.apiUrl}/graduate-thesis/set-title`;
-const MyThesisUrl = `${environment.apiUrl}/graduate-thesis/my-thesis`;
-const StudentUrl = `${environment.apiUrl}/students/`;
-const ProfessorUrl = `${environment.apiUrl}/professor/`;
+const myThesisUrl = `${environment.apiUrl}/graduate-thesis/my-thesis`;
+const studentUrl = `${environment.apiUrl}/students/`;
+const professorUrl = `${environment.apiUrl}/professor/`;
+const thesisUrl = `${environment.apiUrl}/graduate-thesis/`;
+
 
 
 @Injectable({
@@ -95,7 +97,7 @@ export class DataService {
   }
 
   getMyThesis() {
-    return this.http.get<ThesisPayload>(MyThesisUrl, {
+    return this.http.get<ThesisPayload>(myThesisUrl, {
       observe: 'body',
       responseType: 'json'
     }).pipe(
@@ -208,7 +210,7 @@ export class DataService {
   }
 
   getStudent(username: string) {
-    return this.http.get<Student>(StudentUrl + username, {
+    return this.http.get<Student>(studentUrl + username, {
       observe: 'body',
       responseType: 'json'
     }).pipe(
@@ -228,7 +230,7 @@ export class DataService {
   }
 
   getThesis() {
-    return this.http.get<ThesisPayload>(MyThesisUrl, {
+    return this.http.get<ThesisPayload>(myThesisUrl, {
       observe: 'body',
       responseType: 'json'
     }).pipe(catchError(err => {
@@ -242,8 +244,26 @@ export class DataService {
     });
   }
 
+  getThesisByStudentId(studentId: bigint) {
+    return this.http.get<ThesisPayload>(thesisUrl + studentId, {
+      observe: 'body',
+      responseType: 'json'
+    }).pipe(
+      map(thesis => {
+        return thesis;
+      }), catchError(err => {
+        console.log('error caught');
+        this.dialog.open(DialogComponent, {
+          data: {title: "Error", message: err}
+        });
+        return throwError(err);
+      })).subscribe(value => {
+      this.studentsService.setThesis(value);
+    });
+  }
+
   getMentor(mentorId: number) {
-    return this.http.get<ProfessorPayload>(ProfessorUrl + mentorId, {
+    return this.http.get<ProfessorPayload>(professorUrl + mentorId, {
       observe: 'body',
       responseType: 'json'
     }).pipe(catchError(err => {
@@ -260,7 +280,7 @@ export class DataService {
   }
 
   getMyStudents() {
-    this.http.get<StudentPayload[]>(StudentUrl, {
+    this.http.get<StudentPayload[]>(studentUrl, {
       observe: 'body',
       responseType: 'json'
     }).pipe(

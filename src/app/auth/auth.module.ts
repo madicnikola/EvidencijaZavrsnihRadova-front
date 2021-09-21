@@ -16,7 +16,7 @@ import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatOptionModule} from "@angular/material/core";
 import {SharedModule} from "../shared/shared.module";
 import {MatStepperModule} from "@angular/material/stepper";
-import {MatIcon, MatIconModule} from "@angular/material/icon";
+import {MatIconModule} from "@angular/material/icon";
 
 @NgModule({
   declarations: [

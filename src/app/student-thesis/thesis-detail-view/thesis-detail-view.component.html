@@ -1,0 +1,61 @@
+<div *ngIf="thesis">
+  <!--  <form [formGroup]="thesisForm">-->
+  <!--    <h2>Završni rad</h2>-->
+  <!--    <p>Tip završnog rada : Završni rad</p>-->
+  <!--    <mat-form-field class="full-width" appearance="outline">-->
+  <!--      <mat-label>Tema</mat-label>-->
+  <!--      <input matInput type="text" placeholder="" formControlName="title" [value]="thesis.title" readonly>-->
+  <!--    </mat-form-field>-->
+  <!--    <mat-form-field class="full-width" appearance="outline">-->
+  <!--      <mat-label>Ocena</mat-label>-->
+  <!--      <input matInput type="text" placeholder="" formControlName="grade" [value]="thesis.grade" readonly>-->
+  <!--    </mat-form-field>-->
+  <!--    <mat-form-field class="example-full-width" appearance="outline">-->
+  <!--      <mat-label>Termin odbrane</mat-label>-->
+  <!--      <input matInput id="dateOfThesisDefence" formControlName="dateOfThesisDefence"-->
+  <!--             [value]="thesis.dateOfThesisDefence | date: 'dd-MMM-yyyy'" readonly>-->
+  <!--    </mat-form-field>-->
+  <!--    <p>Datumi</p>-->
+  <!--    <mat-form-field class="full-width" appearance="outline">-->
+  <!--      <mat-label>Prijava</mat-label>-->
+  <!--      <input matInput placeholder="" formControlName="dateOfReception"-->
+  <!--             [value]="thesis.dateOfReception | date: 'dd-MMM-yyyy'" readonly>-->
+  <!--    </mat-form-field>-->
+  <!--    <mat-form-field class="full-width" appearance="outline">-->
+  <!--      <mat-label>Predaja</mat-label>-->
+  <!--      <input matInput placeholder="" formControlName="dateOfSubmission"-->
+  <!--             [value]="thesis.dateOfSubmission | date: 'dd-MMM-yyyy'" readonly>-->
+  <!--    </mat-form-field>-->
+  <!--    <mat-form-field class="full-width" appearance="outline">-->
+  <!--      <mat-label>Odbrana</mat-label>-->
+  <!--      <input matInput placeholder="" formControlName="dateThesisDefended"-->
+  <!--             [value]="thesis.dateOfThesisDefence | date: 'dd-MMM-yyyy'" readonly>-->
+  <!--    </mat-form-field>-->
+  <!--  </form>-->
+  <h2>Završni rad</h2>
+  <h4>Tip završnog rada : Završni rad</h4>
+  <mat-label>Tema</mat-label>
+  <mat-card style="margin: 1px;">{{thesis.title}}</mat-card>
+  <mat-label>Ocena</mat-label>
+  <mat-card style="margin: 1px;">{{thesis.grade}}</mat-card>
+  <h4>Datumi</h4>
+  <mat-label>Termin odbrane</mat-label>
+  <mat-card style="margin: 1px;">{{thesis.dateOfThesisDefence | date: 'dd-MMM-yyyy'}}</mat-card>
+
+  <mat-label>Prijava</mat-label>
+  <mat-card style="margin: 1px;"> {{thesis.dateOfReception | date: 'dd-MMM-yyyy'}}</mat-card>
+  <mat-label>Predaja</mat-label>
+  <mat-card style="margin: 1px;"> {{thesis.dateOfSubmission | date: 'dd-MMM-yyyy'}}</mat-card>
+  <mat-label>Datum formiranja komisije</mat-label>
+  <mat-card style="margin: 1px;">{{thesis.dateOfBoardFormation | date: 'dd-MMM-yyyy'}}</mat-card>
+  <ng-template [ngIf]="mentor">
+    <mat-tab-group [(selectedIndex)]="selectedIndex">
+      <mat-tab label="Mentor">
+        <mat-card> {{mentor.title.name}} {{mentor.name}} {{mentor.surname}}</mat-card>
+      </mat-tab>
+      <mat-tab label="Odbrana">
+
+      </mat-tab>
+    </mat-tab-group>
+  </ng-template>
+</div>
