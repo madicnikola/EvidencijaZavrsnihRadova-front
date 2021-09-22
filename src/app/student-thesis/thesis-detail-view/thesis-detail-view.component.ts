@@ -1,54 +1,55 @@
-import {AfterContentInit, Component, Input, OnInit} from '@angular/core';
+import {AfterContentInit, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {DataService} from "../../shared/data.service";
 import {StudentThesisService} from "../student-thesis.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ThesisPayload} from "../../shared/dto/thesis.payload";
 import {ProfessorPayload} from "../../shared/dto/professor.payload";
 import {DatePipe} from "@angular/common";
+import {Subject, Subscription} from "rxjs";
+import {takeUntil} from "rxjs/operators";
 
 @Component({
   selector: 'app-thesis-detail-view',
   templateUrl: './thesis-detail-view.component.html',
   styleUrls: ['./thesis-detail-view.component.css']
 })
-export class ThesisDetailViewComponent implements OnInit, AfterContentInit {
-  thesisForm: FormGroup;
+export class ThesisDetailViewComponent implements OnInit, OnChanges {
   @Input() thesis: ThesisPayload;
   mentor: ProfessorPayload;
   selectedIndex = 0;
+  private registeredEventsSubscription: Subscription;
 
-  constructor(private dataService: DataService,
-              private studentThesis: StudentThesisService,
-              private fb: FormBuilder) {
+  constructor(private dataService: DataService) {
   }
 
   ngOnInit(): void {
-    this.setMentor();
+  }
+
+  ngOnChanges(changes): void {
+    if (changes.thesis && this.thesis) {
+      this.setMentor();
+    }
   }
 
   private setMentor() {
     const mentorId = this.thesis.board.professors.find(value => {
       return value.function == "MENTOR" ? value : null;
     }).boardFunctionId.professorId;
-    this.dataService.getMentor(mentorId).subscribe(value => {
+    this.registeredEventsSubscription = this.dataService.getMentor(mentorId).subscribe(value => {
       this.mentor = value;
     });
   }
 
-  ngAfterContentInit(): void {
-  }
-
-  private patchValue() {
-    const pipe = new DatePipe('en-GB short');
-    this.thesisForm.patchValue({
-      ...this.thesis,
-      dateOfThesisDefence: pipe.transform(this.thesis.dateOfThesisDefence),
-      dateOfReception: pipe.transform(this.thesis.dateOfReception),
-      dateOfBoardFormation: pipe.transform(this.thesis.dateOfBoardFormation),
-      dateOfSubmission: pipe.transform(this.thesis.dateOfSubmission),
-    });
-  }
-
+  // private patchValue() {
+  //   const pipe = new DatePipe('en-GB short');
+  //   this.thesisForm.patchValue({
+  //     ...this.thesis,
+  //     dateOfThesisDefence: pipe.transform(this.thesis.dateOfThesisDefence),
+  //     dateOfReception: pipe.transform(this.thesis.dateOfReception),
+  //     dateOfBoardFormation: pipe.transform(this.thesis.dateOfBoardFormation),
+  //     dateOfSubmission: pipe.transform(this.thesis.dateOfSubmission),
+  //   });
+  // }
 
   // private buildForm() {
   //   this.thesisForm = this.fb.group(

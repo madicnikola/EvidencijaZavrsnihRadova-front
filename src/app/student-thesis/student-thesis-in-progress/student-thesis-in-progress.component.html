@@ -1,5 +1,36 @@
 <app-thesis-detail-view [thesis]="thesis"></app-thesis-detail-view>
 <hr>
-<h2>Dokumenta</h2>
-<app-file-upload [thesis]="thesis"></app-file-upload>
+<div class="container">
+  <h2>Dokumenta</h2>
+  <div class="row">
+    <button mat-raised-button style="margin: 1px;" class="btn" (click)="onAddPdf()">
+      <mat-icon>library_add</mat-icon>
+      Dodaj dokument(.pdf)
+    </button>
+    <ng-template [ngIf]="addPdf">
+      <app-file-upload [thesis]="thesis" (uploaded)="onUpload($event)"></app-file-upload>
+    </ng-template>
+  </div>
+  <div class="row">
+    <button mat-raised-button style="margin: 1px;" class="btn" (click)="onAddZip()">
+      <mat-icon>library_add</mat-icon>
+      Dodaj kod(.zip)
+    </button>
+    <ng-template [ngIf]="addZip">
+      <app-file-upload [thesis]="thesis" (uploaded)="onUpload($event)"></app-file-upload>
+    </ng-template>
+  </div>
+  <div class="row">
+    <button mat-raised-button style="margin: 1px;" class="btn" (click)="onAddPptx()">
+      <mat-icon>library_add</mat-icon>
+      Dodaj prezentaciju(.pptx)
+    </button>
+    <ng-template [ngIf]="addPptx">
+      <app-file-upload [thesis]="thesis" (uploaded)="onUpload($event)"></app-file-upload>
+    </ng-template>
+  </div>
+  <app-file-list [thesisSubject]="thesisSubject" [filesChanged]="changed" [title]="'Dokumenta'"
+                 [deleteEnabled]="true"></app-file-list>
+</div>
+
 

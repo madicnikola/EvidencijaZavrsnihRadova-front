@@ -15,12 +15,12 @@ export class StudentsService {
   constructor() {
   }
 
-  setstudents(students: StudentPayload[]) {
+  setStudents(students: StudentPayload[]) {
     this.students = students;
     this.studentChanged.next(students.slice());
   }
 
-  getstudents() {
+  getStudents() {
     return this.students.slice();
   }
 

@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {Subject} from "rxjs";
 import {NotificationPayload} from "../shared/dto/Notification.payload";
 import {Student} from "../shared/model/student.model";
-import {Thesis} from "../shared/model/thesis.model";
 import {ThesisPayload} from "../shared/dto/thesis.payload";
 
 @Injectable({

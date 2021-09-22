@@ -32,7 +32,7 @@ export class StudentListComponent implements OnInit, OnDestroy {
         this.students = value;
       }
     );
-    this.students = this.studentService.getstudents();
+    this.students = this.studentService.getStudents();
   }
 
 
@@ -41,6 +41,5 @@ export class StudentListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }

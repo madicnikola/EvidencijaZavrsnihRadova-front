@@ -1,7 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {DataService} from "../shared/data.service";
 import {StudentThesisService} from "./student-thesis.service";
-import {Thesis} from "../shared/model/thesis.model";
 import {Subscription} from "rxjs";
 import {ThesisPayload} from "../shared/dto/thesis.payload";
 
@@ -13,7 +12,6 @@ import {ThesisPayload} from "../shared/dto/thesis.payload";
 export class StudentThesisComponent implements OnInit {
 
   thesis: ThesisPayload;
-  @Input() input: ThesisPayload;
   subscription: Subscription;
 
 
@@ -22,16 +20,12 @@ export class StudentThesisComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.input) {
-      this.thesis = this.input;
-    } else {
-      this.dataService.getMyThesis()
-        .subscribe(thesis => {
-          this.stService.setThesis(thesis);
-          this.thesis = thesis;
-        });
-      this.thesis = this.stService.getThesis();
-    }
+    this.subscription = this.dataService.getMyThesis()
+      .subscribe(thesis => {
+        this.stService.setThesis(thesis);
+        this.thesis = thesis;
+      });
+    this.thesis = this.stService.getThesis();
   }
 
 

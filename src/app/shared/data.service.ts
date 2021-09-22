@@ -6,7 +6,6 @@ import {AuthService} from "../auth/auth.service";
 import {ThesesService} from "../theses/theses.service";
 import {environment} from "../../environments/environment";
 import {StudentThesisService} from "../student-thesis/student-thesis.service";
-import {Thesis} from "./model/thesis.model";
 import {ProfessorPayload} from "./dto/professor.payload";
 import {ProfessorService} from "../professors/professor.service";
 import {MatDialog} from "@angular/material/dialog";
@@ -53,8 +52,8 @@ export class DataService {
   }
 
 
-  getTheses(): Observable<Thesis[]> {
-    return this.http.get<Thesis[]>(publishedThesesDataUrl);
+  getTheses(): Observable<ThesisPayload[]> {
+    return this.http.get<ThesisPayload[]>(publishedThesesDataUrl);
   }
 
 // filteredListOptions() {
@@ -72,7 +71,7 @@ export class DataService {
 // }
 
   getPublishedTheses() {
-    this.http.get<Thesis[]>(publishedThesesDataUrl, {
+    this.http.get<ThesisPayload[]>(publishedThesesDataUrl, {
       observe: 'body',
       responseType: 'json'
     }).pipe(
@@ -292,7 +291,7 @@ export class DataService {
         return students;
       })).subscribe(
       (students) => {
-        this.studentsService.setstudents(students);
+        this.studentsService.setStudents(students);
       }
     );
   }

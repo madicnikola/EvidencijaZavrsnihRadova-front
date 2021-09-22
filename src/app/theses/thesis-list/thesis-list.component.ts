@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {DataService} from "../../shared/data.service";
 import {Subscription} from "rxjs";
 import {ThesesService} from "../theses.service";
-import {Thesis} from "../../shared/model/thesis.model";
 import {ThesisPayload} from "../../shared/dto/thesis.payload";
 
 @Component({
@@ -11,7 +10,7 @@ import {ThesisPayload} from "../../shared/dto/thesis.payload";
   styleUrls: ['./thesis-list.component.css']
 })
 export class ThesisListComponent implements OnInit {
-  theses: Thesis[];
+  theses: ThesisPayload[];
   subscription: Subscription;
   searchText: string;
 

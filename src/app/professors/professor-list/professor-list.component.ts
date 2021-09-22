@@ -11,7 +11,7 @@ import {ProfessorPayload} from "../../shared/dto/professor.payload";
   templateUrl: './professor-list.component.html',
   styleUrls: ['./professor-list.component.css']
 })
-export class ProfessorListComponent implements OnInit,OnDestroy {
+export class ProfessorListComponent implements OnInit, OnDestroy {
   professors: ProfessorPayload[];
   subscription: Subscription;
   searchText: string;
@@ -39,7 +39,7 @@ export class ProfessorListComponent implements OnInit,OnDestroy {
   private fetchData() {
     this.dataService.getAllProfessors();
   }
+
   ngOnDestroy() {
-    this.subscription.unsubscribe();
   }
 }

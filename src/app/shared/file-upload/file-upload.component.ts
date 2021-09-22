@@ -1,8 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Observable, Subject, Subscription} from "rxjs";
 import {FileUploadService} from "./file-upload.service";
 import {HttpEventType, HttpResponse} from "@angular/common/http";
-import {Thesis} from "../model/thesis.model";
+import {ThesisPayload} from "../dto/thesis.payload";
+import {UP_ARROW} from "@angular/cdk/keycodes";
 
 @Component({
   selector: 'app-file-upload',
@@ -14,8 +15,9 @@ export class FileUploadComponent implements OnInit {
   currentFile?: File;
   progress = 0;
   message = '';
-  fileInfos?: Observable<any>;
-  @Input() thesis: Thesis;
+  fileInfos?: Observable<any> = new Observable<any>();
+  @Output() uploaded = new EventEmitter<string>();
+  @Input() thesis: ThesisPayload;
   folderName: string
 
   constructor(private uploadService: FileUploadService) {
@@ -23,6 +25,7 @@ export class FileUploadComponent implements OnInit {
 
   ngOnInit(): void {
     this.fileInfos = this.uploadService.getFiles(this.getFolderName());
+    this.uploaded.emit("start");
   }
 
   selectFile(event: any): void {
@@ -46,6 +49,7 @@ export class FileUploadComponent implements OnInit {
               this.message = event.body.message;
               this.fileInfos = this.uploadService.getFiles(this.getFolderName());
             }
+            this.uploaded.emit('uploaded');
           },
           (err: any) => {
             console.log(err);
@@ -56,10 +60,8 @@ export class FileUploadComponent implements OnInit {
             } else {
               this.message = 'Could not upload the file!';
             }
-
             this.currentFile = undefined;
           });
-
       }
 
       this.selectedFiles = undefined;
@@ -69,9 +71,5 @@ export class FileUploadComponent implements OnInit {
   getFolderName() {
     var seq = this.thesis.student.indexNumber.split("/");
     return seq[0] + seq[1];
-  }
-
-  onClick() {
-
   }
 }

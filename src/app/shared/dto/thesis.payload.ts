@@ -1,5 +1,5 @@
 import {Student} from "../model/student.model";
-import {ProgressStatus, VisibilityStatus} from "../model/thesis.model";
+import {ProgressStatus, VisibilityStatus} from "../model/progress-status.model";
 
 export interface BoardFunction {
   boardFunctionId: { professorId: number, boardId: number };

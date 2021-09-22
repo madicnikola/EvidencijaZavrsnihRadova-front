@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef,EventEmitter,Output } from '@a
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { DataService } from '../data.service';
-import {Thesis} from "../model/thesis.model";
+import {ThesisPayload} from "../dto/thesis.payload";
 
 @Component({
   selector: 'app-search-bar',
@@ -13,7 +13,7 @@ export class SearchBarComponent implements OnInit {
 
   myControl = new FormControl();
   filteredOptions: Observable<string[]>;
-  allTheses: Thesis[];
+  allTheses: ThesisPayload[];
   autoCompleteList: any[]
 
   @ViewChild('autocompleteInput') autocompleteInput: ElementRef;
@@ -49,7 +49,7 @@ export class SearchBarComponent implements OnInit {
       : this.allTheses;
   }
 
-  displayFn(t: Thesis) {
+  displayFn(t: ThesisPayload) {
     let k = t ? t.title: '';
     return k;
   }

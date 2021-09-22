@@ -1,29 +1,18 @@
-<p>thesis-detail works!</p>
+<p>thesisSubject-detail works!</p>
 <div class="row">
   <h4>Student</h4>
 </div>
 <div class="offset-1">
-<div class="row">
-  <div class="col-md-12">
-    {{thesis.student.name}} {{thesis.student.surname}} {{thesis.student.indexNumber}}
-  </div>
-</div>
-<div class="row">
-  <div class="col-lg-12">{{thesis.student.department.name}}</div>
-</div>
-</div>
-<div class="row">
-  <h4>Dokumenta</h4>
-<!--  <app-file-upload></app-file-upload>-->
-</div>
-<div class="offset-1">
- <div class="row">
-  <a>pdf</a>
- </div>
   <div class="row">
-    <a>prezentacija</a>
+    <div class="col-md-12">
+      {{thesis.student.name}} {{thesis.student.surname}} {{thesis.student.indexNumber}}
+    </div>
   </div>
   <div class="row">
-    <a>izvorni kod</a>
+    <div class="col-lg-12">{{thesis.student.department.name}}</div>
   </div>
+</div>
+<div class="row">
+  <app-file-list [thesisSubject]="thesisSubject" [filesChanged]="changed" [title]="'Dokumenta'"
+                 [deleteEnabled]="false"></app-file-list>
 </div>
