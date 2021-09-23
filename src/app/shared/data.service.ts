@@ -26,9 +26,9 @@ const titleRequestUrl = `${environment.apiUrl}/graduate-thesis/request-title`;
 const titleSetUrl = `${environment.apiUrl}/graduate-thesis/set-title`;
 const myThesisUrl = `${environment.apiUrl}/graduate-thesis/my-thesis`;
 const studentUrl = `${environment.apiUrl}/students/`;
+const studentsBoardUrl = `${environment.apiUrl}/students/board`;
 const professorUrl = `${environment.apiUrl}/professor/`;
 const thesisUrl = `${environment.apiUrl}/graduate-thesis/`;
-
 
 
 @Injectable({
@@ -153,20 +153,6 @@ export class DataService {
         }));
   }
 
-// login(loginRequestPayload: LoginRequestPayload): Observable<boolean> {
-//   return this.client.post<AuthenticationResponse>(`${environment.apiUrl}/auth/login`,
-//     loginRequestPayload).pipe(map(data => {
-//     this.loggedIn.emit(true);
-//     this.username.emit(data.username);
-//     this.token = data.authenticationToken;
-//     localStorage.setItem('token', JSON.stringify(data.authenticationToken));
-//     localStorage.setItem('user', JSON.stringify(data));
-//     this.userSubject.next(data);
-//     this.router.navigate(['/']);
-//     return true;
-//   }));
-// }
-
   getAllNotifs() {
     this.http.get<{
       notifications: NotificationPayload[],
@@ -280,6 +266,24 @@ export class DataService {
 
   getMyStudents() {
     this.http.get<StudentPayload[]>(studentUrl, {
+      observe: 'body',
+      responseType: 'json'
+    }).pipe(
+      map(students => {
+        console.log(students);
+        //for (let thesis of theses){
+        //
+        //}
+        return students;
+      })).subscribe(
+      (students) => {
+        this.studentsService.setStudents(students);
+      }
+    );
+  }
+
+  getStudents(uri: string) {
+    this.http.get<StudentPayload[]>( `${environment.apiUrl}` + uri, {
       observe: 'body',
       responseType: 'json'
     }).pipe(

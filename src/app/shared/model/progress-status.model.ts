@@ -1,6 +1,7 @@
 
 export enum VisibilityStatus {
   PRIVATE = 'PRIVATE',
+  BOARD_VIEW = 'BOARD_VIEW',
   PUBLISHED = 'PUBLISHED'
 }
 

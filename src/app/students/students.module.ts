@@ -17,9 +17,9 @@ import {StudentThesisModule} from "../student-thesis/student-thesis.module";
 @NgModule({
   declarations: [
     StudentsComponent,
-    StudentDetailsComponent,
     StudentListComponent,
-    StudentItemComponent
+    StudentItemComponent,
+    StudentDetailsComponent
   ],
   imports: [
     SharedModule,

@@ -18,7 +18,8 @@ export class FileUploadComponent implements OnInit {
   fileInfos?: Observable<any> = new Observable<any>();
   @Output() uploaded = new EventEmitter<string>();
   @Input() thesis: ThesisPayload;
-  folderName: string
+  folderName: string;
+  @Input() fileType: string;
 
   constructor(private uploadService: FileUploadService) {
   }
@@ -41,7 +42,7 @@ export class FileUploadComponent implements OnInit {
       if (file) {
         this.currentFile = file;
 
-        this.uploadService.upload(this.currentFile).subscribe(
+        this.uploadService.upload(this.currentFile,this.fileType).subscribe(
           (event: any) => {
             if (event.type === HttpEventType.UploadProgress) {
               this.progress = Math.round(100 * event.loaded / event.total);
@@ -72,4 +73,5 @@ export class FileUploadComponent implements OnInit {
     var seq = this.thesis.student.indexNumber.split("/");
     return seq[0] + seq[1];
   }
+  
 }

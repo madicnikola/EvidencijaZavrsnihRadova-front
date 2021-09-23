@@ -11,6 +11,14 @@
           <mat-icon>delete</mat-icon>
         </button>
       </ng-template>
+      <ng-template [ngIf]="hideShowEnabled && file.status != 'PUBLISHED'">
+        <button mat-button *ngIf="file.status != 'BOARD_VIEW'" (click)="onChangeVisibility(file.name, file.status)">
+          <mat-icon>visibility</mat-icon>
+        </button>
+        <button mat-button *ngIf="file.status == 'BOARD_VIEW'" (click)="onChangeVisibility(file.name, file.status)">
+          <mat-icon>visibility_off</mat-icon>
+        </button>
+      </ng-template>
     </li>
   </ul>
 </div>

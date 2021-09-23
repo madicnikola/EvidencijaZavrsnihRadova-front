@@ -8,7 +8,7 @@
       Dodaj dokument(.pdf)
     </button>
     <ng-template [ngIf]="addPdf">
-      <app-file-upload [thesis]="thesis" (uploaded)="onUpload($event)"></app-file-upload>
+      <app-file-upload [thesis]="thesis" (uploaded)="onUpload($event)" [fileType]="'document'"></app-file-upload>
     </ng-template>
   </div>
   <div class="row">
@@ -17,16 +17,16 @@
       Dodaj kod(.zip)
     </button>
     <ng-template [ngIf]="addZip">
-      <app-file-upload [thesis]="thesis" (uploaded)="onUpload($event)"></app-file-upload>
+      <app-file-upload [thesis]="thesis" (uploaded)="onUpload($event)" [fileType]="'sourcecode'"></app-file-upload>
     </ng-template>
   </div>
   <div class="row">
-    <button mat-raised-button style="margin: 1px;" class="btn" (click)="onAddPptx()">
+    <button mat-raised-button style="margin: 1px;" class="btn" (click)="onAddPptx()" >
       <mat-icon>library_add</mat-icon>
       Dodaj prezentaciju(.pptx)
     </button>
     <ng-template [ngIf]="addPptx">
-      <app-file-upload [thesis]="thesis" (uploaded)="onUpload($event)"></app-file-upload>
+      <app-file-upload [thesis]="thesis" (uploaded)="onUpload($event)" [fileType]="'presentation'"></app-file-upload>
     </ng-template>
   </div>
   <app-file-list [thesisSubject]="thesisSubject" [filesChanged]="changed" [title]="'Dokumenta'"

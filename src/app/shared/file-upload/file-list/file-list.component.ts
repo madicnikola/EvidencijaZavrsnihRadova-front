@@ -1,7 +1,8 @@
-import {AfterContentInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import {Observable, Subject, Subscription} from "rxjs";
 import {FileUploadService} from "../file-upload.service";
 import {ThesisPayload} from "../../dto/thesis.payload";
+import {VisibilityStatus} from "../../model/progress-status.model";
 
 @Component({
   selector: 'app-file-list',
@@ -17,8 +18,9 @@ export class FileListComponent implements OnInit, OnChanges, OnDestroy {
   thesis: ThesisPayload;
   folderName: string;
   @Input() title: string;
-  @Input() deleteEnabled: boolean = true;
+  @Input() deleteEnabled: boolean = false;
   sub: Subscription;
+  @Input() hideShowEnabled: boolean = false;
 
 
   constructor(private uploadService: FileUploadService) {
@@ -54,10 +56,6 @@ export class FileListComponent implements OnInit, OnChanges, OnDestroy {
 
   }
 
-  ngOnDestroy(): void {
-    this.sub.unsubscribe();
-  }
-
 
   getFolderName() {
     var seq = this.thesis.student.indexNumber.split("/");
@@ -65,4 +63,33 @@ export class FileListComponent implements OnInit, OnChanges, OnDestroy {
   }
 
 
+  onChangeVisibility(filename, status: VisibilityStatus) {
+    if (status == 'PUBLISHED') {
+      console.log('2');
+      return;
+    } else if (status == 'PRIVATE') {
+      console.log('1');
+      status = VisibilityStatus.BOARD_VIEW;
+    } else {
+      console.log('0');
+      status = VisibilityStatus.PRIVATE;
+    }
+    this.uploadService.changeDocumentVisibility(this.folderName, filename, status).subscribe(value => {
+      console.log('status: ' + status);
+      this.fileInfos = this.uploadService.getFiles(this.folderName);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
+
+  changeBack(filename: string, status: VisibilityStatus) {
+      status = VisibilityStatus.PRIVATE;
+    this.uploadService.changeDocumentVisibility(this.folderName, filename, status).subscribe(value => {
+      console.log('status: ' + status);
+      this.fileInfos = this.uploadService.getFiles(this.folderName);
+    });
+
+  }
 }

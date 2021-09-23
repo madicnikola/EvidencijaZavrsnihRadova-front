@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
-import {Subject} from "rxjs";
+import {Subject, throwError} from "rxjs";
 import {StudentPayload} from "../shared/dto/student.payload";
 import {ThesisPayload} from "../shared/dto/thesis.payload";
+import {DataService} from "../shared/data.service";
+import {AuthService} from "../auth/auth.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,7 @@ export class StudentsService {
   thesisChanged = new Subject<ThesisPayload>();
   private thesis: ThesisPayload;
 
-  constructor() {
+  constructor(private authService: AuthService) {
   }
 
   setStudents(students: StudentPayload[]) {
@@ -32,6 +34,7 @@ export class StudentsService {
     this.thesis = thesis;
     this.thesisChanged.next(this.thesis);
   }
+
   getThesis() {
     return this.thesis;
   }

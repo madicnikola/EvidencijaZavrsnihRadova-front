@@ -26,7 +26,6 @@ export class StudentListComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    this.fetchData();
     this.subscription = this.studentService.studentChanged.subscribe(
       value => {
         this.students = value;
@@ -34,7 +33,6 @@ export class StudentListComponent implements OnInit, OnDestroy {
     );
     this.students = this.studentService.getStudents();
   }
-
 
   private fetchData() {
     this.dataService.getMyStudents();
