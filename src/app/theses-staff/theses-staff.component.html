@@ -1,0 +1,14 @@
+<mat-button-toggle-group>
+  <mat-button-toggle class="btn" (click)="onFilterByYear(2021)" value="2020/2021">2020/2021</mat-button-toggle>
+  <mat-button-toggle class="btn" (click)="onFilterByYear(2020)" value="2019/2020">2019/2020</mat-button-toggle>
+  <mat-button-toggle class="btn" (click)="onFilterByYear(2019)" value="2018/2019">2018/2019</mat-button-toggle>
+</mat-button-toggle-group>
+
+<div class="row">
+  <div class="col-md-5">
+    <app-theses-list-staff></app-theses-list-staff>
+  </div>
+  <div class="col-md-7">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,12 +1,8 @@
-import {AfterContentInit, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {DataService} from "../../shared/data.service";
-import {StudentThesisService} from "../student-thesis.service";
-import {FormBuilder, FormGroup} from "@angular/forms";
 import {ThesisPayload} from "../../shared/dto/thesis.payload";
 import {ProfessorPayload} from "../../shared/dto/professor.payload";
-import {DatePipe} from "@angular/common";
-import {Subject, Subscription} from "rxjs";
-import {takeUntil} from "rxjs/operators";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-thesis-detail-view',
@@ -50,19 +46,5 @@ export class ThesisDetailViewComponent implements OnInit, OnChanges {
   //     dateOfSubmission: pipe.transform(this.thesis.dateOfSubmission),
   //   });
   // }
-
-  // private buildForm() {
-  //   this.thesisForm = this.fb.group(
-  //     {
-  //       title: this.thesis.title,
-  //       grade: this.thesis.grade ? this.thesis.grade : 0,
-  //       dateOfThesisDefence: this.thesis.dateOfThesisDefence ?this.thesis.dateOfThesisDefence : '' ,
-  //       dateOfReception: this.thesis.dateOfReception ? this.thesis.dateOfReception : '' ,
-  //       dateOfBoardFormation: this.thesis.dateOfReception ? this.thesis.dateOfReception : '' ,
-  //       dateThesisDefended:this.thesis.dateOfReception ? this.thesis.dateOfReception : '' ,
-  //       dateOfSubmission: this.thesis.dateOfReception ? this.thesis.dateOfReception : '' ,
-  //     });
-  // }
-
 
 }

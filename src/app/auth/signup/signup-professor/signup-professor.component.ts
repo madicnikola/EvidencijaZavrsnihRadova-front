@@ -22,7 +22,7 @@ export class SignupProfessorComponent implements OnInit {
   isLinear = true;
   signUpProfessorForm: FormGroup;
   academicRankOptions: string[] = ['Asistent', 'Docent', 'Vanredni profesor', 'Redovni profesor'];
-  titleOptions: string[] = ['prof dr', 'doc'];
+  titleOptions: string[] = ['prof dr','dr', 'doc','mr','-'];
   filteredOptionsRank: Observable<string[]>;
   filteredOptionsTitle: Observable<string[]>;
 

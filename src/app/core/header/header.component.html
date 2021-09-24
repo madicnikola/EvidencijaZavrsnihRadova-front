@@ -28,8 +28,8 @@
                 Rad</a></li>
             </ng-template>
             <ng-template [ngIf]="authService.isAuthorized(['PROFESSOR','STAFF'])">
-              <li class="nav-item" ngbDropdownItem><a class="nav-link" routerLink="/students" routerLinkActive="active">Studenti</a>
-              </li>
+              <!--              <li class="nav-item" ngbDropdownItem><a class="nav-link" routerLink="/students" routerLinkActive="active">Studenti</a>-->
+              <!--              </li>-->
               <li class="dropdown nav-item" ngbDropdownItem>
                 <button class="dropbtn">STUDENTI</button>
                 <div class="dropdown-content">
@@ -37,9 +37,12 @@
                      (click)="fetchStudents('mentor')">Mentor</a>
                   <a class="nav-link" routerLink="/students" routerLinkActive="active"
                      (click)="fetchStudents('board_member')">U Komisiji</a>
-                  <a class="nav-link" routerLink="/students" routerLinkActive="active" (click)="fetchStudents('all')">Svi</a>
                 </div>
               </li>
+            </ng-template>
+            <ng-template [ngIf]="authService.isAuthorized(['STAFF'])">
+              <li class="nav-item" ngbDropdownItem><a class="nav-link" routerLink="/theses-admin" routerLinkActive="active">Završni
+                Radovi</a></li>
             </ng-template>
             <li class="nav-item" ngbDropdownItem><a class="nav-link" routerLink="/theses" routerLinkActive="active">Objavljeni
               Radovi</a></li>

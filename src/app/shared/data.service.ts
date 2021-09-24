@@ -17,6 +17,7 @@ import {Student} from "./model/student.model";
 import {ThesisPayload} from "./dto/thesis.payload";
 import {StudentPayload} from "./dto/student.payload";
 import {StudentsService} from "../students/students.service";
+import {ThesesStaffService} from "../theses-staff/theses-staff.service";
 
 
 const publishedThesesDataUrl = `${environment.apiUrl}/graduate-thesis/published`;
@@ -28,9 +29,12 @@ const myThesisUrl = `${environment.apiUrl}/graduate-thesis/my-thesis`;
 const studentUrl = `${environment.apiUrl}/students/`;
 const studentsBoardUrl = `${environment.apiUrl}/students/board`;
 const publishThesisUrl = `${environment.apiUrl}/graduate-thesis/publish`;
+const thesesByYearUrl = `${environment.apiUrl}/graduate-thesis/filter/`;
 const professorUrl = `${environment.apiUrl}/professor/`;
-const thesisUrl = `${environment.apiUrl}/graduate-thesis/`;
+const thesisUrl = `${environment.apiUrl}/graduate-thesis/student/`;
+const thesisByStudentUsernameUrl = `${environment.apiUrl}/graduate-thesis/student/user-profile/`;
 const updateThesisUrl = `${environment.apiUrl}/graduate-thesis/update/`;
+const boardMembersOptionsDataUrl = `${environment.apiUrl}/professor/board/thesis/`;
 
 
 @Injectable({
@@ -40,7 +44,6 @@ export class DataService {
 
   searchOption = [];
 
-
   constructor(
     private http: HttpClient,
     private authService: AuthService,
@@ -49,6 +52,7 @@ export class DataService {
     private professorService: ProfessorService,
     private notifService: NotificationService,
     private studentsService: StudentsService,
+    private thesesStaffService: ThesesStaffService,
     public dialog: MatDialog
   ) {
   }
@@ -177,7 +181,7 @@ export class DataService {
   }
 
   setTitle(username: string, title: string) {
-    return this.http.post<{ message: string }>(titleSetUrl, {username, title},
+    return this.http.post<ThesisPayload>(titleSetUrl, {username, title},
       {
         observe: 'body',
         responseType: 'json'
@@ -192,8 +196,12 @@ export class DataService {
           data: {title: "Error", message: err}
         });
         return throwError(err);
-      }));
-
+      })).subscribe(thesis => {
+      this.notifService.setThesis(thesis);
+      this.dialog.open(DialogComponent, {
+        data: {title: "Uspešno", message: "Naziv teme je uspešno postavljen!"}
+      });
+    });
   }
 
   getStudent(username: string) {
@@ -203,7 +211,6 @@ export class DataService {
     }).pipe(
       map(student => {
         // transform here if it needs
-
         return student;
       }), catchError(err => {
         console.log('error caught');
@@ -213,6 +220,25 @@ export class DataService {
         return throwError(err);
       })).subscribe(value => {
       this.notifService.setStudent(value);
+    });
+  }
+
+  getThesisByStudentUserName(username: string) {
+    return this.http.get<ThesisPayload>(thesisByStudentUsernameUrl + username, {
+      observe: 'body',
+      responseType: 'json'
+    }).pipe(
+      map(student => {
+        // transform here if it needs
+        return student;
+      }), catchError(err => {
+        console.log('error caught');
+        this.dialog.open(DialogComponent, {
+          data: {title: "Error", message: err}
+        });
+        return throwError(err);
+      })).subscribe(value => {
+      this.notifService.setThesis(value);
     });
   }
 
@@ -318,7 +344,13 @@ export class DataService {
           data: {title: "Error", message: err}
         });
         return throwError(err);
-      }));
+      })).subscribe(
+      (theses) => {
+        this.thesesStaffService.setUpdatedThesis(thesis);
+        this.dialog.open(DialogComponent, {
+          data: {title: "Obaveštenje", message: "Uspešno ažuriran završni rad!"}
+        });
+      });
   }
 
   publishThesis(thesis: ThesisPayload) {
@@ -339,6 +371,57 @@ export class DataService {
         return throwError(err);
       }));
 
+
+  }
+
+  getThesesByYear(year: number) {
+    this.http.get<ThesisPayload[]>(thesesByYearUrl + year, {
+      observe: 'body',
+      responseType: 'json'
+    }).pipe(
+      map(theses => {
+        console.log(theses);
+        //for (let thesis of theses){
+        //
+        //}
+        return theses;
+      }), catchError(err => {
+        console.log('error caught');
+        this.dialog.open(DialogComponent, {
+          data: {title: "Error", message: err}
+        });
+        return throwError(err);
+      })
+    ).subscribe(
+      (theses) => {
+        this.thesesStaffService.setTheses(theses);
+      }
+    );
+  }
+
+  getBoardMembersOptions(graduateThesisId: bigint) {
+    this.http.get<ProfessorPayload[]>(boardMembersOptionsDataUrl + graduateThesisId, {
+      observe: 'body',
+      responseType: 'json'
+    }).pipe(
+      map(theses => {
+        console.log(theses);
+        //for (let thesis of theses){
+        //
+        //}
+        return theses;
+      }), catchError(err => {
+        console.log('error caught');
+        this.dialog.open(DialogComponent, {
+          data: {title: "Error", message: err}
+        });
+        return throwError(err);
+      })
+    ).subscribe(
+      (professors) => {
+        this.thesesStaffService.setBoardMemberOptions(professors);
+      }
+    );
 
   }
 }

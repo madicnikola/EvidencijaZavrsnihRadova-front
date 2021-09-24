@@ -8,6 +8,7 @@ import {DialogComponent} from "../../../shared/dialog/dialog.component";
 import {MatDialog} from "@angular/material/dialog";
 import {Student} from "../../../shared/model/student.model";
 import {Subscription} from "rxjs";
+import {ThesisPayload} from "../../../shared/dto/thesis.payload";
 
 @Component({
   selector: 'app-notification-details-professor',
@@ -17,6 +18,7 @@ import {Subscription} from "rxjs";
 export class NotificationDetailsProfessorComponent implements OnInit {
 
   notif: NotificationPayload;
+  thesis: ThesisPayload;
   id: number;
   thesisTitleForm: FormGroup;
   student: Student;
@@ -44,6 +46,10 @@ export class NotificationDetailsProfessorComponent implements OnInit {
     this.notifService.studentChanged.subscribe(value => {
       this.student = value;
     });
+    this.notifService.thesisChanged.subscribe(value => {
+      this.thesis = value;
+    });
+
     this.student = this.notifService.getStudent();
   }
 
@@ -52,18 +58,12 @@ export class NotificationDetailsProfessorComponent implements OnInit {
       return;
     const username = this.notif.sender.username;
     const title = this.thesisTitleForm.value.title;
-
-    this.dataService.setTitle(username, title).subscribe(
-      messageDto => {
-        this.dialog.open(DialogComponent, {
-          data: {title: "Uspešno", message: messageDto.message}
-        });
-      }
-    );
+    this.dataService.setTitle(username, title);
   }
 
   private fetchData() {
     this.dataService.getStudent(this.notif.sender.username);
+    this.dataService.getThesisByStudentUserName(this.notif.sender.username);
   }
 
 }

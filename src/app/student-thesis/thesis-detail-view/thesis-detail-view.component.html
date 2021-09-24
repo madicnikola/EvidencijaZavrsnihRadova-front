@@ -45,7 +45,7 @@
   <mat-label>Prijava</mat-label>
   <mat-card style="margin: 1px;"> {{thesis.dateOfReception | date: 'dd-MMM-yyyy'}}</mat-card>
   <mat-label>Predaja</mat-label>
-  <mat-card style="margin: 1px;"> {{thesis.dateOfSubmission | date: 'dd-MMM-yyyy'}}</mat-card>
+  <mat-card style="margin: 1px;"> {{thesis.dateOfThesisSubmission | date: 'dd-MMM-yyyy'}}</mat-card>
   <mat-label>Datum formiranja komisije</mat-label>
   <mat-card style="margin: 1px;">{{thesis.dateOfBoardFormation | date: 'dd-MMM-yyyy'}}</mat-card>
   <ng-template [ngIf]="mentor">

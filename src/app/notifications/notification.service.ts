@@ -42,8 +42,8 @@ export class NotificationService {
   }
 
   setThesis(thesis: ThesisPayload) {
+    this.thesisChanged.next(thesis);
     this.thesis = thesis;
-    this.thesisChanged.next(this.thesis);
   }
 
   getThesis() {

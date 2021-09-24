@@ -1,12 +1,12 @@
 import {Person} from "./person.model";
 
 export interface Title {
-  id: bigint;
+  titleId: bigint;
   name: string;
 }
 
 export interface AcademicRank {
-  id: bigint;
+  academicRankId: bigint;
   name: string;
 }
 

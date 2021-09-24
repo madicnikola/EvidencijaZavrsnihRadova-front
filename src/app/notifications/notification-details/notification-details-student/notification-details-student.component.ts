@@ -5,8 +5,8 @@ import {NotificationPayload} from "../../../shared/dto/Notification.payload";
 import {DataService} from "../../../shared/data.service";
 import {ActivatedRoute} from "@angular/router";
 import {NotificationService} from "../../notification.service";
-import {DatePipe} from "@angular/common";
 import {Subject} from "rxjs";
+import {take} from "rxjs/operators";
 
 @Component({
   selector: 'app-notification-details-student',
@@ -16,8 +16,8 @@ import {Subject} from "rxjs";
 export class NotificationDetailsStudentComponent implements OnInit {
   notif: NotificationPayload;
   id: number;
-  @Input() thesis: ThesisPayload;
-  thesisSubject: Subject<ThesisPayload> =new Subject<ThesisPayload>();
+  thesis: ThesisPayload;
+  thesisSubject: Subject<ThesisPayload> = new Subject<ThesisPayload>();
 
 
   constructor(private fb: FormBuilder,
@@ -33,6 +33,15 @@ export class NotificationDetailsStudentComponent implements OnInit {
         this.id = +params['id'];
         this.notif = this.notifService.getNotification(this.id);
         this.thesisSubject.next(this.thesis);
+        this.fetchData();
       });
+    this.notifService.thesisChanged.subscribe(value => {
+      this.thesis = value;
+    });
+  }
+
+
+  private fetchData() {
+    this.dataService.getThesisByStudentUserName(this.notif.user.username);
   }
 }

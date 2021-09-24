@@ -1,0 +1,96 @@
+<mat-tab-group>
+  <form [formGroup]="thesisForm" (ngSubmit)="onSubmit()">
+    <mat-tab label="Završni rad">
+      <h4>Tip završnog rada : Završni rad</h4>
+      <input type="hidden" placeholder="" formControlName="graduateThesisId" [value]="thesis.graduateThesisId">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Tema</mat-label>
+        <input matInput type="text" placeholder="" formControlName="title" [value]="thesis.title">
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Ocena</mat-label>
+        <input matInput type="number" placeholder="" formControlName="grade" [value]="thesis.grade">
+      </mat-form-field>
+      <p>Datumi</p>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Termin odbrane</mat-label>
+        <input matInput placeholder="" formControlName="dateOfThesisDefence"
+               [value]="thesis.dateOfThesisDefence | date: 'dd-MM-yyyy'">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Prijava</mat-label>
+        <input matInput placeholder="" formControlName="dateOfReception"
+               [value]="thesis.dateOfReception | date: 'dd-MM-yyyy'">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Predaja</mat-label>
+        <input matInput placeholder="" formControlName="dateOfThesisSubmission"
+               [value]="thesis.dateOfThesisSubmission | date: 'dd-MM-yyyy'">
+      </mat-form-field>
+      <mat-form-field class="example-full-width" appearance="outline">
+        <mat-label>Odbranjen</mat-label>
+        <input matInput placeholder="" formControlName="dateThesisDefended"
+               [value]="thesis.dateOfThesisDefence | date: 'dd-MM-yyyy'">
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Fakultet</mat-label>
+        <input matInput type="text" placeholder="" formControlName="faculty" [value]="thesis.faculty">
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Status</mat-label>
+        <input matInput type="text" placeholder="" formControlName="progressStatus" [value]="thesis.progressStatus"
+               readonly>
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Vidljivost</mat-label>
+        <input matInput type="text" placeholder="" formControlName="visibilityStatus" [value]="thesis.visibilityStatus"
+               readonly>
+      </mat-form-field>
+      <h4>Student</h4>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Ime</mat-label>
+        <input matInput type="text" placeholder="" formControlName="studentName" [value]="thesis.student.name" readonly>
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Prezime</mat-label>
+        <input matInput type="text" placeholder="" formControlName="studentSurname" [value]="thesis.student.surname"
+               readonly>
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Index</mat-label>
+        <input matInput type="text" placeholder="" formControlName="studentIndexNumber"
+               [value]="this.thesis.student.indexNumber" readonly>
+      </mat-form-field>
+      <button mat-raised-button class="btn" style=" margin: 5px 1px 1px;" type="submit">Sačuvaj promene</button>
+    </mat-tab>
+  </form>
+
+  <mat-tab label="Komisija">
+    <form [formGroup]="boardMembersForm" (ngSubmit)="onBoardMembersFormSubmit()">
+      <button mat-raised-button class="btn" style="margin: 5px 1px 1px;" type="button" (click)="onAddNewBoardMember()">
+        Dodaj člana
+      </button>
+      <ng-template [ngIf]="showNewMemberControl">
+        <div class="row">
+          <mat-form-field class="full-width" appearance="fill">
+            <mat-label>Član</mat-label>
+            <input type="text"
+                   placeholder="Izaberite"
+                   aria-label="Number"
+                   matInput
+                   formControlName="boardMember"
+                   [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of BoardMemberOptionsString" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+        <div class="row">
+          <button mat-raised-button class="btn" style=" margin: 5px 1px 1px;" type="submit">Sačuvaj promene</button>
+        </div>
+      </ng-template>
+    </form>
+  </mat-tab>
+</mat-tab-group>

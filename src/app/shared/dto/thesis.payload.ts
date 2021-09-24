@@ -23,7 +23,7 @@ export interface ThesisPayload {
   dateOfReception: Date;
   dateOfBoardFormation: Date;
   dateOfThesisDefence: Date;
-  dateOfSubmission: Date;
+  dateOfThesisSubmission: Date;
   progressStatus: ProgressStatus;
   visibilityStatus: VisibilityStatus;
   grade: number;

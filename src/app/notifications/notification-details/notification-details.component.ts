@@ -22,20 +22,15 @@ export class NotificationDetailsComponent implements OnInit {
     if (this.authService.isAuthorized(['student'])) {
       this.fetchThesisData();
     }
+    this.notifService.thesisChanged.subscribe(value => {
+      this.thesis = value;
+    });
 
   }
 
 
   private fetchThesisData() {
     this.dataService.getThesis();
-    this.setThesis();
-  }
-
-
-  private setThesis() {
-    this.notifService.thesisChanged.subscribe(value => {
-      this.thesis = value;
-    });
     this.thesis = this.notifService.getThesis();
   }
 
