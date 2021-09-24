@@ -12,10 +12,10 @@
         </button>
       </ng-template>
       <ng-template [ngIf]="hideShowEnabled && file.status != 'PUBLISHED'">
-        <button mat-button *ngIf="file.status != 'BOARD_VIEW'" (click)="onChangeVisibility(file.name, file.status)">
+        <button mat-button *ngIf="file.status != 'BOARD_VIEW'" (click)="onChangeVisibility(file.name, file.status)" matTooltip="Omogući komisiji pregled dokumenta">
           <mat-icon>visibility</mat-icon>
         </button>
-        <button mat-button *ngIf="file.status == 'BOARD_VIEW'" (click)="onChangeVisibility(file.name, file.status)">
+        <button mat-button *ngIf="file.status == 'BOARD_VIEW'" (click)="onChangeVisibility(file.name, file.status)" matTooltip="Onemogući komisiji pregled dokumenta">
           <mat-icon>visibility_off</mat-icon>
         </button>
       </ng-template>

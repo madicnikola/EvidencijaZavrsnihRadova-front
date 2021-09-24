@@ -23,18 +23,20 @@
           </ng-template>
 
           <ng-template [ngIf]="authService.isAuthenticated()">
-            <ng-template [ngIf]="authService.isAuthorized('STUDENT')">
+            <ng-template [ngIf]="authService.isAuthorized(['STUDENT'])">
               <li class="nav-item" ngbDropdownItem><a class="nav-link" routerLink="/thesis" routerLinkActive="active">Završni
                 Rad</a></li>
             </ng-template>
-            <ng-template [ngIf]="authService.isAuthorized('PROFESSOR')">
+            <ng-template [ngIf]="authService.isAuthorized(['PROFESSOR','STAFF'])">
               <li class="nav-item" ngbDropdownItem><a class="nav-link" routerLink="/students" routerLinkActive="active">Studenti</a>
               </li>
               <li class="dropdown nav-item" ngbDropdownItem>
                 <button class="dropbtn">STUDENTI</button>
                 <div class="dropdown-content">
-                  <a class="nav-link" routerLink="/students" routerLinkActive="active" (click)="fetchStudents('mentor')">Mentor</a>
-                  <a class="nav-link" routerLink="/students" routerLinkActive="active" (click)="fetchStudents('board_member')">U Komisiji</a>
+                  <a class="nav-link" routerLink="/students" routerLinkActive="active"
+                     (click)="fetchStudents('mentor')">Mentor</a>
+                  <a class="nav-link" routerLink="/students" routerLinkActive="active"
+                     (click)="fetchStudents('board_member')">U Komisiji</a>
                   <a class="nav-link" routerLink="/students" routerLinkActive="active" (click)="fetchStudents('all')">Svi</a>
                 </div>
               </li>

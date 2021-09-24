@@ -9,6 +9,7 @@ import {FileUploadComponent} from './file-upload/file-upload.component';
 import {HttpClientModule} from "@angular/common/http";
 import {FileListComponent} from './file-upload/file-list/file-list.component';
 import {MatIconModule} from "@angular/material/icon";
+import {MatTooltipModule} from "@angular/material/tooltip";
 
 @NgModule({
   declarations: [
@@ -17,13 +18,14 @@ import {MatIconModule} from "@angular/material/icon";
     FileUploadComponent,
     FileListComponent
   ],
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatIconModule,
-  ],
+    imports: [
+        CommonModule,
+        HttpClientModule,
+        MatDialogModule,
+        MatButtonModule,
+        MatIconModule,
+        MatTooltipModule,
+    ],
     exports: [
         CommonModule,
         HttpClientModule,

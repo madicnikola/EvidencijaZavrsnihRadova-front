@@ -53,7 +53,6 @@ export class FileListComponent implements OnInit, OnChanges, OnDestroy {
         }
       });
     }
-
   }
 
 

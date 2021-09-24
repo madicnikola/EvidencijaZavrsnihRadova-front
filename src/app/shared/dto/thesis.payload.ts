@@ -16,7 +16,7 @@ export interface Board {
 }
 
 export interface ThesisPayload {
-  thesisId: bigint;
+  graduateThesisId: bigint;
   title: string;
   faculty: string;
   description: string;

@@ -78,12 +78,12 @@ export class AuthService {
     return this.token != null;
   }
 
-  isAuthorized(role: string) {
+  isAuthorized(roles: string[]) {
     if (this.userValue) {
-      return this.userValue.role.toUpperCase() == role.toUpperCase();
+      return roles.indexOf(this.userValue.role) !== -1;
     } else if (localStorage.getItem('user')) {
       const user = JSON.parse(localStorage.getItem('user'));
-      return user.role.toUpperCase() == role.toUpperCase();
+      return roles.indexOf(user.role) !== -1;
     }
     return false;
   }

@@ -27,8 +27,10 @@ const titleSetUrl = `${environment.apiUrl}/graduate-thesis/set-title`;
 const myThesisUrl = `${environment.apiUrl}/graduate-thesis/my-thesis`;
 const studentUrl = `${environment.apiUrl}/students/`;
 const studentsBoardUrl = `${environment.apiUrl}/students/board`;
+const publishThesisUrl = `${environment.apiUrl}/graduate-thesis/publish`;
 const professorUrl = `${environment.apiUrl}/professor/`;
 const thesisUrl = `${environment.apiUrl}/graduate-thesis/`;
+const updateThesisUrl = `${environment.apiUrl}/graduate-thesis/update/`;
 
 
 @Injectable({
@@ -283,7 +285,7 @@ export class DataService {
   }
 
   getStudents(uri: string) {
-    this.http.get<StudentPayload[]>( `${environment.apiUrl}` + uri, {
+    this.http.get<StudentPayload[]>(`${environment.apiUrl}` + uri, {
       observe: 'body',
       responseType: 'json'
     }).pipe(
@@ -298,5 +300,45 @@ export class DataService {
         this.studentsService.setStudents(students);
       }
     );
+  }
+
+  updateThesis(thesis: ThesisPayload, thesisId: bigint) {
+    return this.http.put<ThesisPayload>(updateThesisUrl + thesisId, thesis,
+      {
+        observe: 'body',
+        responseType: 'json'
+      }).pipe(
+      map(thesis => {
+        console.log(thesis);
+        // transform here if it needs
+        return thesis;
+      }), catchError(err => {
+        console.log('error caught');
+        this.dialog.open(DialogComponent, {
+          data: {title: "Error", message: err}
+        });
+        return throwError(err);
+      }));
+  }
+
+  publishThesis(thesis: ThesisPayload) {
+    return this.http.post<ThesisPayload>(publishThesisUrl, thesis,
+      {
+        observe: 'body',
+        responseType: 'json'
+      }).pipe(
+      map(thesis => {
+        console.log(thesis);
+        // transform here if it needs
+        return thesis;
+      }), catchError(err => {
+        console.log('error caught');
+        this.dialog.open(DialogComponent, {
+          data: {title: "Error", message: err}
+        });
+        return throwError(err);
+      }));
+
+
   }
 }

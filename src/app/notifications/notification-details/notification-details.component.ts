@@ -19,7 +19,7 @@ export class NotificationDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.authService.isAuthorized('student')) {
+    if (this.authService.isAuthorized(['student'])) {
       this.fetchThesisData();
     }
 

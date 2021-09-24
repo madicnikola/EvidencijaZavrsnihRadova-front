@@ -5,6 +5,9 @@ import {StudentsService} from "../students.service";
 import {DataService} from "../../shared/data.service";
 import {ThesisPayload} from "../../shared/dto/thesis.payload";
 import {Subject} from "rxjs";
+import {AuthService} from "../../auth/auth.service";
+import {VisibilityStatus} from "../../shared/model/progress-status.model";
+
 
 @Component({
   selector: 'app-student-details',
@@ -21,7 +24,8 @@ export class StudentDetailsComponent implements OnInit, AfterViewInit {
 
   constructor(private route: ActivatedRoute,
               public studentsService: StudentsService,
-              private dataService: DataService) {
+              private dataService: DataService,
+              private authService: AuthService) {
   }
 
 
@@ -35,7 +39,7 @@ export class StudentDetailsComponent implements OnInit, AfterViewInit {
           this.filesChanged.next('changed');
           this.thesisSubject.next(this.thesis);
         });
-    this.fetchData();
+    // this.fetchData();
     this.studentsService.thesisChanged.subscribe(value => {
       this.thesis = value;
       this.thesisSubject.next(this.thesis);
@@ -50,5 +54,24 @@ export class StudentDetailsComponent implements OnInit, AfterViewInit {
 
   private fetchData() {
     this.dataService.getThesisByStudentId(this.student.personId);
+  }
+
+  isMentor() {
+    return this.student.mentor.userProfile.username == this.authService.getUserName();
+  }
+
+  onPublish() {
+    this.thesis.visibilityStatus = VisibilityStatus.PUBLISHED;
+    this.dataService.publishThesis(this.thesis).subscribe(value => {
+      this.thesis = value;
+    });
+  }
+
+
+  onUnpublish() {
+    this.thesis.visibilityStatus = VisibilityStatus.PRIVATE;
+    this.dataService.publishThesis(this.thesis).subscribe(value => {
+      this.thesis = value;
+    });
   }
 }
