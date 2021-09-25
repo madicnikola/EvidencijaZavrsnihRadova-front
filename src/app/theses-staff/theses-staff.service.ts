@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Subject} from "rxjs";
+import {BehaviorSubject, Subject} from "rxjs";
 import {ThesisPayload} from "../shared/dto/thesis.payload";
 import {ProfessorPayload} from "../shared/dto/professor.payload";
+import {take, tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,9 @@ export class ThesesStaffService {
   thesisUpdated = new Subject<ThesisPayload>();
   private boardMemberOptions: ProfessorPayload[];
   boardMemberOptionsChanged = new Subject<ProfessorPayload[]>();
+  boardMembersSubject = new Subject<ProfessorPayload[]>();
+  boardMembers: ProfessorPayload[] = [];
+
 
 
   constructor() {
@@ -45,7 +49,6 @@ export class ThesesStaffService {
   setBoardMemberOptions(professors: ProfessorPayload[]) {
     this.boardMemberOptions = professors;
     this.boardMemberOptionsChanged.next(this.boardMemberOptions.slice());
-
   }
 
 
@@ -55,5 +58,26 @@ export class ThesesStaffService {
 
   getBoardMemberOption(index: number) {
     return this.boardMemberOptions[index];
+  }
+
+  setNewBoardMember(professor: ProfessorPayload) {
+      let professors = this.getBoardMembers();
+      professors.push(professor);
+      this.setBoardMembers(professors);
+    // this.boardMembersSubject.pipe(take(1),tap(x => {
+    //   professors = x;
+    //   professors.push(professor);
+    //   console.log(professors);
+    //   this.boardMembersSubject.next(professors);
+    // }));
+  }
+
+  setBoardMembers(professors: ProfessorPayload[]) {
+    this.boardMembers = professors;
+    this.boardMembersSubject.next(this.boardMembers.slice());
+  }
+
+  getBoardMembers() {
+    return this.boardMembers.slice();
   }
 }

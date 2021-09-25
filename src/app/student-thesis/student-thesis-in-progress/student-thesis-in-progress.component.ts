@@ -6,13 +6,14 @@ import {DataService} from "../../shared/data.service";
 import {StudentThesisService} from "../student-thesis.service";
 import {ProfessorPayload} from "../../shared/dto/professor.payload";
 import {Observable, Subject} from "rxjs";
+import {FileUploadService} from "../../shared/file-upload/file-upload.service";
 
 @Component({
   selector: 'app-student-thesis-in-progress',
   templateUrl: './student-thesis-in-progress.component.html',
   styleUrls: ['./student-thesis-in-progress.component.css']
 })
-export class StudentThesisInProgressComponent implements OnInit, AfterViewInit {
+export class StudentThesisInProgressComponent implements OnInit {
   thesisForm: FormGroup;
   @Input() thesis: ThesisPayload;
   mentor: ProfessorPayload;
@@ -24,18 +25,21 @@ export class StudentThesisInProgressComponent implements OnInit, AfterViewInit {
 
   constructor(private dataService: DataService,
               private studentThesis: StudentThesisService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private uploadService: FileUploadService) {
   }
 
 
   ngOnInit(): void {
     this.setMentor();
+    this.uploadService.setThesis(this.thesis);
     this.thesisSubject.next(this.thesis);
   }
 
-  ngAfterViewInit(): void {
-    this.thesisSubject.next(this.thesis);
-  }
+  // ngAfterViewInit(): void {
+  //   this.thesisSubject.next(this.thesis);
+  //   this.uploadService.setThesis(this.thesis);
+  // }
 
   private setMentor() {
     const mentorId = this.thesis.board.professors.find(value => {

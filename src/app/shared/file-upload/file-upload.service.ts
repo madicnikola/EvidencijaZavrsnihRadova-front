@@ -1,4 +1,4 @@
-import {Injectable, Input, Output} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpEvent, HttpRequest} from "@angular/common/http";
 import {Observable, Subject} from "rxjs";
 import {environment} from "../../../environments/environment";
@@ -9,8 +9,8 @@ import {VisibilityStatus} from "../model/progress-status.model";
   providedIn: 'root'
 })
 export class FileUploadService {
-  @Output() thesisChanged = new Subject<ThesisPayload>();
-  @Input() thesis: ThesisPayload;
+  thesisSubject = new Subject<ThesisPayload>();
+  thesis: ThesisPayload;
 
   constructor(private http: HttpClient) {
   }
@@ -42,7 +42,7 @@ export class FileUploadService {
 
   setThesis(thesis: ThesisPayload) {
     this.thesis = thesis;
-    this.thesisChanged.next(thesis);
+    this.thesisSubject.next(thesis);
   }
 
   getThesis() {

@@ -54,7 +54,10 @@
         <mat-card> {{mentor.title.name}} {{mentor.name}} {{mentor.surname}}</mat-card>
       </mat-tab>
       <mat-tab label="Odbrana">
-
+        <tr
+          *ngFor="let boardMember of boardMembers">
+          <td>{{boardMember.title.name}} {{boardMember.name}} {{boardMember.surname}}</td>
+        </tr>
       </mat-tab>
     </mat-tab-group>
   </ng-template>

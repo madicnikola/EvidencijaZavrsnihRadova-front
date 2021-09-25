@@ -14,7 +14,6 @@ export class ThesesService {
   setTheses(theses: ThesisPayload[]) {
     this.theses = theses;
     this.thesesChanged.next(this.theses.slice());
-
   }
 
   getTheses() {

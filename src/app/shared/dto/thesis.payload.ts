@@ -10,6 +10,7 @@ export interface BoardFunction {
 
 
 export interface Board {
+  boardId: bigint;
   numberOfMembers: number;
   dateOfFormation: Date;
   professors: BoardFunction[];

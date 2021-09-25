@@ -1,6 +1,6 @@
 <mat-tab-group>
-  <form [formGroup]="thesisForm" (ngSubmit)="onSubmit()">
     <mat-tab label="Završni rad">
+  <form [formGroup]="thesisForm" (ngSubmit)="onSubmit()">
       <h4>Tip završnog rada : Završni rad</h4>
       <input type="hidden" placeholder="" formControlName="graduateThesisId" [value]="thesis.graduateThesisId">
       <mat-form-field class="full-width" appearance="outline">
@@ -62,17 +62,19 @@
                [value]="this.thesis.student.indexNumber" readonly>
       </mat-form-field>
       <button mat-raised-button class="btn" style=" margin: 5px 1px 1px;" type="submit">Sačuvaj promene</button>
-    </mat-tab>
   </form>
+    </mat-tab>
 
   <mat-tab label="Komisija">
+    <tr
+      *ngFor="let boardMember of boardMembers;">
+      <td>{{boardMember.title.name}} {{boardMember.name}} {{boardMember.surname}}  - {{boardMembers.indexOf(boardMember)+1}}. član </td>
+    </tr>
     <form [formGroup]="boardMembersForm" (ngSubmit)="onBoardMembersFormSubmit()">
-      <button mat-raised-button class="btn" style="margin: 5px 1px 1px;" type="button" (click)="onAddNewBoardMember()">
-        Dodaj člana
-      </button>
+      <div class="container">
       <ng-template [ngIf]="showNewMemberControl">
         <div class="row">
-          <mat-form-field class="full-width" appearance="fill">
+          <mat-form-field class="example-full-width" appearance="fill">
             <mat-label>Član</mat-label>
             <input type="text"
                    placeholder="Izaberite"
@@ -80,17 +82,21 @@
                    matInput
                    formControlName="boardMember"
                    [matAutocomplete]="auto">
-            <mat-autocomplete #auto="matAutocomplete">
-              <mat-option *ngFor="let option of BoardMemberOptionsString" [value]="option">
-                {{option}}
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+              <mat-option *ngFor="let option of BoardMemberOptions" [value]="option">
+                {{option.title.name}} {{option.name}} {{option.surname}}
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
+          <button mat-raised-button class="btn" style="margin: 5px 1px 1px;" type="submit" (click)="onAddNewBoardMember()">
+            Dodaj člana
+          </button>
         </div>
         <div class="row">
           <button mat-raised-button class="btn" style=" margin: 5px 1px 1px;" type="submit">Sačuvaj promene</button>
         </div>
       </ng-template>
+      </div>
     </form>
   </mat-tab>
 </mat-tab-group>

@@ -20,15 +20,13 @@ export class ThesesDetailsStaffComponent implements OnInit, AfterViewInit {
   id: number;
   changed: Subject<string> = new Subject<string>();
   thesisSubject = new Subject<ThesisPayload>();
-  private sub: Subscription;
   thesisForm: FormGroup;
   boardMembersForm: FormGroup;
   BoardMemberOptionsString: string[] = [];
   BoardMemberOptions: ProfessorPayload[];
-
+  boardMembers: ProfessorPayload[];
   datePipe: DatePipe = new DatePipe('en-US');
-  showNewMemberControl: boolean = false;
-
+  showNewMemberControl: boolean = true;
 
   constructor(private thesesStaffService: ThesesStaffService,
               private router: Router,
@@ -47,13 +45,22 @@ export class ThesesDetailsStaffComponent implements OnInit, AfterViewInit {
         this.buildForm();
         this.buildBoardMembersForm();
         this.getBoardMembersOptions(this.thesis);
-
+        this.getBoardMembers();
+        this.thesesStaffService.boardMembersSubject.subscribe(value => {
+          this.boardMembers = value;
+        });
+        this.thesesStaffService.thesisUpdated.subscribe(value => {
+          this.thesis = this.thesesStaffService.getThesis(this.id);
+        });
       });
-    this.thesisSubject.next(this.thesis);
-    this.thesesStaffService.thesisUpdated.subscribe(value => {
-      this.thesis = this.thesesStaffService.getThesis(this.id);
-    });
+  }
 
+  private getBoardMembers() {
+    let boardFunctions = this.thesis.board.professors.filter(value => value.function == "BOARD_MEMBER");
+    let boardMemberIds = boardFunctions.map(value => {
+      return value.boardFunctionId.professorId
+    });
+    this.dataService.getBoardMembers(boardMemberIds);
   }
 
   ngAfterViewInit(): void {
@@ -62,6 +69,10 @@ export class ThesesDetailsStaffComponent implements OnInit, AfterViewInit {
       this.thesis = value;
       // this.buildForm();
     });
+  }
+
+  displayFn(prof: ProfessorPayload): string {
+    return prof && prof.name ? prof.title.name + ' ' + prof.name + ' ' + prof.surname : '';
   }
 
   private buildForm() {
@@ -109,7 +120,11 @@ export class ThesesDetailsStaffComponent implements OnInit, AfterViewInit {
   }
 
   onAddNewBoardMember() {
-    this.showNewMemberControl = true;
+    const professor = this.boardMembersForm.value.boardMember;
+    this.dataService.setBoardMember(this.thesis.board.boardId + '', professor.personId + '').subscribe(value => {
+      this.thesis.board.professors.push(professor);
+      this.getBoardMembers();
+    });
   }
 
   onBoardMembersFormSubmit() {

@@ -2,20 +2,20 @@
   <div class="card-header">{{ title }}</div>
   <ul
     class="list-group list-group-flush"
-    *ngFor="let file of fileInfos | async"
+    *ngFor="let doc of docInfos | async"
   >
     <li class="list-group-item">
-      <a mat-raised-button class="btn" href="{{file.fileLocation}}">{{ file.name }}</a>
+      <a mat-raised-button class="btn" href="{{doc.fileLocation}}">{{ doc.name }}</a>
       <ng-template [ngIf]="deleteEnabled">
-        <button mat-button (click)="onDelete(file.name)">
+        <button mat-button (click)="onDelete(doc.name)">
           <mat-icon>delete</mat-icon>
         </button>
       </ng-template>
-      <ng-template [ngIf]="hideShowEnabled && file.status != 'PUBLISHED'">
-        <button mat-button *ngIf="file.status != 'BOARD_VIEW'" (click)="onChangeVisibility(file.name, file.status)" matTooltip="Omogući komisiji pregled dokumenta">
+      <ng-template [ngIf]="hideShowEnabled && doc.status != 'PUBLISHED'">
+        <button mat-button *ngIf="doc.status != 'BOARD_VIEW'" (click)="onChangeVisibility(doc.name, doc.status)" matTooltip="Omogući komisiji pregled dokumenta">
           <mat-icon>visibility</mat-icon>
         </button>
-        <button mat-button *ngIf="file.status == 'BOARD_VIEW'" (click)="onChangeVisibility(file.name, file.status)" matTooltip="Onemogući komisiji pregled dokumenta">
+        <button mat-button *ngIf="doc.status == 'BOARD_VIEW'" (click)="changeBackToPrivate(doc.name, doc.status)" matTooltip="Onemogući pregled dokumenta">
           <mat-icon>visibility_off</mat-icon>
         </button>
       </ng-template>

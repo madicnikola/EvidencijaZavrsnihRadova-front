@@ -7,6 +7,8 @@ import {map, startWith} from "rxjs/operators";
 import {autocompleteStringValidator} from "../../../shared/validators";
 import {STEPPER_GLOBAL_OPTIONS} from "@angular/cdk/stepper";
 import {Router} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {DialogComponent} from "../../../shared/dialog/dialog.component";
 
 @Component({
   selector: 'app-signup-professor',
@@ -43,7 +45,8 @@ export class SignupProfessorComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private formBuilder: FormBuilder,
-              private router: Router) {
+              private router: Router,
+              private matDialog: MatDialog) {
 
   }
 
@@ -88,6 +91,9 @@ export class SignupProfessorComponent implements OnInit {
     this.authService.register(data)
       .subscribe(data => {
         this.router.navigate(['/signin']);
+        this.matDialog.open(DialogComponent, {
+          data: {title: "Obaveštenje", message: "Poslat Vam je email za verifikaciju naloga!"}
+        });
       }, error => console.log('Registration failed. Please try again'));
   }
 

@@ -1,6 +1,6 @@
 import {UserProfilePayload} from "./userProfile.payload";
 
-export interface PersonPayload {
+export class PersonPayload {
   personId: bigint;
   name: string;
   surname: string;

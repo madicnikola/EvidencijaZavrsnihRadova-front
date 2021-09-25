@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Observable, throwError} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
-import {catchError, map} from "rxjs/operators";
+import {HttpClient, HttpRequest} from '@angular/common/http';
+import {catchError, map, tap} from "rxjs/operators";
 import {AuthService} from "../auth/auth.service";
 import {ThesesService} from "../theses/theses.service";
 import {environment} from "../../environments/environment";
@@ -30,11 +30,13 @@ const studentUrl = `${environment.apiUrl}/students/`;
 const studentsBoardUrl = `${environment.apiUrl}/students/board`;
 const publishThesisUrl = `${environment.apiUrl}/graduate-thesis/publish`;
 const thesesByYearUrl = `${environment.apiUrl}/graduate-thesis/filter/`;
+const allThesesUrl = `${environment.apiUrl}/graduate-thesis`;
 const professorUrl = `${environment.apiUrl}/professor/`;
 const thesisUrl = `${environment.apiUrl}/graduate-thesis/student/`;
 const thesisByStudentUsernameUrl = `${environment.apiUrl}/graduate-thesis/student/user-profile/`;
 const updateThesisUrl = `${environment.apiUrl}/graduate-thesis/update/`;
 const boardMembersOptionsDataUrl = `${environment.apiUrl}/professor/board/thesis/`;
+const addBoardMemberUrl = `${environment.apiUrl}/graduate-thesis/board/add`;
 
 
 @Injectable({
@@ -421,7 +423,72 @@ export class DataService {
       (professors) => {
         this.thesesStaffService.setBoardMemberOptions(professors);
       }
+    );}
+
+  getAllTheses() {
+    this.http.get<ThesisPayload[]>(allThesesUrl, {
+      observe: 'body',
+      responseType: 'json'
+    }).pipe(
+      map(theses => {
+        console.log(theses);
+        //for (let thesis of theses){
+        //
+        //}
+        return theses;
+      }), catchError(err => {
+        console.log('error caught');
+        this.dialog.open(DialogComponent, {
+          data: {title: "Error", message: err}
+        });
+        return throwError(err);
+      })
+    ).subscribe(
+      (theses) => {
+        this.thesesStaffService.setTheses(theses);
+      }
     );
+  }
+
+  getBoardMembers(boardMemberIds: number[]) {
+    return this.http.post<ProfessorPayload[]>(professorUrl, boardMemberIds, {
+      observe: 'body',
+      responseType: 'json'
+    }).pipe(catchError(err => {
+        console.log('error caught');
+        this.dialog.open(DialogComponent, {
+          data: {title: "Error", message: err}
+        });
+        return throwError(err);
+      }),
+      tap(professors => {
+        console.log(professors);
+        this.thesesStaffService.setBoardMembers(professors);
+      })).subscribe();
 
   }
+
+  setBoardMember(boardId: string, personId: string) {
+    const formData: FormData = new FormData();
+
+    formData.append('boardId', boardId);
+    formData.append('professorId', personId);
+
+    return this.http.post<ProfessorPayload>(addBoardMemberUrl, formData, {
+      observe: 'body',
+      responseType: 'json'
+    }).pipe(catchError(err => {
+        console.log('error caught');
+        this.dialog.open(DialogComponent, {
+          data: {title: "Error", message: err}
+        });
+        return throwError(err);
+      }),
+      tap(professor => {
+        this.thesesStaffService.setNewBoardMember(professor);
+      }));
+
+  }
+
+
 }

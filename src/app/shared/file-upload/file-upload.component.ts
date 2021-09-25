@@ -35,7 +35,7 @@ export class FileUploadComponent implements OnInit {
 
   upload(): void {
     this.progress = 0;
-
+    this.uploadService.setThesis(this.thesis);
     if (this.selectedFiles) {
       const file: File | null = this.selectedFiles.item(0);
 
@@ -73,5 +73,5 @@ export class FileUploadComponent implements OnInit {
     var seq = this.thesis.student.indexNumber.split("/");
     return seq[0] + seq[1];
   }
-  
+
 }

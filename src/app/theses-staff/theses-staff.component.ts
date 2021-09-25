@@ -19,4 +19,9 @@ export class ThesesStaffComponent implements OnInit {
     this.router.navigate(['/theses-admin']);
     this.dataService.getThesesByYear(year);
   }
+
+  onAll() {
+    this.router.navigate(['/theses-admin']);
+    this.dataService.getAllTheses();
+  }
 }

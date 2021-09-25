@@ -13,6 +13,8 @@ export class StudentsService {
   private students: StudentPayload[] = [];
   thesisChanged = new Subject<ThesisPayload>();
   private thesis: ThesisPayload;
+  changed = new Subject<string>();
+
 
   constructor(private authService: AuthService) {
   }
