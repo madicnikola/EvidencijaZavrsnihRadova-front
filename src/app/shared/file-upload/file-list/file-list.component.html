@@ -15,9 +15,9 @@
         <button mat-button *ngIf="doc.status != 'BOARD_VIEW'" (click)="onChangeVisibility(doc.name, doc.status)" matTooltip="Omogući komisiji pregled dokumenta">
           <mat-icon>visibility</mat-icon>
         </button>
-        <button mat-button *ngIf="doc.status == 'BOARD_VIEW'" (click)="changeBackToPrivate(doc.name, doc.status)" matTooltip="Onemogući pregled dokumenta">
+      </ng-template>
+      <button mat-button *ngIf="doc.status == 'BOARD_VIEW' || doc.status == 'PUBLISHED'" (click)="changeBackToPrivate(doc.name, doc.status)" matTooltip="Onemogući pregled dokumenta">
           <mat-icon>visibility_off</mat-icon>
         </button>
-      </ng-template>
     </li>
   </ul>

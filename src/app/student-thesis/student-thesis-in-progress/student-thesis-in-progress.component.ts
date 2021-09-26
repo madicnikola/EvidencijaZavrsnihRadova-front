@@ -13,7 +13,8 @@ import {FileUploadService} from "../../shared/file-upload/file-upload.service";
   templateUrl: './student-thesis-in-progress.component.html',
   styleUrls: ['./student-thesis-in-progress.component.css']
 })
-export class StudentThesisInProgressComponent implements OnInit {
+export class StudentThesisInProgressComponent implements OnInit, AfterViewInit {
+
   thesisForm: FormGroup;
   @Input() thesis: ThesisPayload;
   mentor: ProfessorPayload;
@@ -36,6 +37,10 @@ export class StudentThesisInProgressComponent implements OnInit {
     this.thesisSubject.next(this.thesis);
   }
 
+
+  ngAfterViewInit(): void {
+    this.uploadService.setThesis(this.thesis);
+  }
   // ngAfterViewInit(): void {
   //   this.thesisSubject.next(this.thesis);
   //   this.uploadService.setThesis(this.thesis);
@@ -101,3 +106,4 @@ export class StudentThesisInProgressComponent implements OnInit {
   }
 
 }
+

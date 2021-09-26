@@ -14,7 +14,7 @@ import {FileUploadService} from "../../shared/file-upload/file-upload.service";
   templateUrl: './student-details.component.html',
   styleUrls: ['./student-details.component.css']
 })
-export class StudentDetailsComponent implements OnInit, AfterContentInit {
+export class StudentDetailsComponent implements OnInit, AfterViewInit {
   student: StudentPayload;
   id: number;
   thesis: ThesisPayload;
@@ -34,22 +34,25 @@ export class StudentDetailsComponent implements OnInit, AfterContentInit {
           this.id = +params['id'];
           this.student = this.studentsService.getStudent(this.id);
           this.fetchThesisData();
-          this.initThesis();
+          this.studentsService.thesisChanged.subscribe(value => {
+            this.thesis = value;
+          });
         });
     // this.fetchData();
-    this.studentsService.thesisChanged.subscribe(value => {
-      this.thesis = value;
-    });
+
     this.thesis = this.studentsService.getThesis();
-    this.uploadService.setThesis(this.thesis);
   }
 
-  ngAfterContentInit(): void {
+  ngAfterViewInit(): void {
     this.uploadService.setThesis(this.thesis);
   }
 
   private fetchThesisData() {
-    this.dataService.getThesisByStudentId(this.student.personId);
+    this.dataService.getThesisByStudentId(this.student.personId).subscribe(
+      value => {
+        this.uploadService.setThesis(value);
+      }
+    );
   }
 
   isMentor() {
@@ -69,10 +72,5 @@ export class StudentDetailsComponent implements OnInit, AfterContentInit {
     this.dataService.publishThesis(this.thesis).subscribe(value => {
       this.thesis = value;
     });
-  }
-
-  private initThesis() {
-    if (this.thesis)
-      this.uploadService.setThesis(this.thesis);
   }
 }

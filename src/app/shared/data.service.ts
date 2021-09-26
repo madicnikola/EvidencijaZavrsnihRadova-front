@@ -272,9 +272,9 @@ export class DataService {
           data: {title: "Error", message: err}
         });
         return throwError(err);
-      })).subscribe(value => {
+      })).pipe(tap(value => {
       this.studentsService.setThesis(value);
-    });
+    }));
   }
 
   getMentor(mentorId: number) {

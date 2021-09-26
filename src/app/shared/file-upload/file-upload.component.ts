@@ -35,7 +35,6 @@ export class FileUploadComponent implements OnInit {
 
   upload(): void {
     this.progress = 0;
-    this.uploadService.setThesis(this.thesis);
     if (this.selectedFiles) {
       const file: File | null = this.selectedFiles.item(0);
 
@@ -48,7 +47,7 @@ export class FileUploadComponent implements OnInit {
               this.progress = Math.round(100 * event.loaded / event.total);
             } else if (event instanceof HttpResponse) {
               this.message = event.body.message;
-              this.fileInfos = this.uploadService.getFiles(this.getFolderName());
+              this.uploadService.setThesis(this.thesis);
             }
             this.uploaded.emit('uploaded');
           },
@@ -64,7 +63,6 @@ export class FileUploadComponent implements OnInit {
             this.currentFile = undefined;
           });
       }
-
       this.selectedFiles = undefined;
     }
   }

@@ -14,7 +14,6 @@ export class ThesisDetailComponent implements OnInit, AfterViewInit {
 
   thesis: ThesisPayload;
   id: number;
-  changed: Subject<string> = new Subject<string>();
   private sub: Subscription;
 
   constructor(private thesisService: ThesesService,
@@ -30,11 +29,11 @@ export class ThesisDetailComponent implements OnInit, AfterViewInit {
         this.id = +params['id'];
         this.thesis = this.thesisService.getThesis(this.id);
         this.uploadService.setThesis(this.thesis);
-        this.changed.next('next');
       });
   }
 
   ngAfterViewInit(): void {
+    this.uploadService.setThesis(this.thesis);
   }
 
 }

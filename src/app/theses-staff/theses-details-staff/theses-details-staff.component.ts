@@ -9,6 +9,8 @@ import {take} from "rxjs/operators";
 import {DatePipe} from "@angular/common";
 import {DataService} from "../../shared/data.service";
 import {ProfessorPayload} from "../../shared/dto/professor.payload";
+import {MatDialog} from "@angular/material/dialog";
+import {DialogComponent} from "../../shared/dialog/dialog.component";
 
 @Component({
   selector: 'app-theses-details-staff',
@@ -18,11 +20,8 @@ import {ProfessorPayload} from "../../shared/dto/professor.payload";
 export class ThesesDetailsStaffComponent implements OnInit {
   thesis: ThesisPayload;
   id: number;
-  changed: Subject<string> = new Subject<string>();
-  thesisSubject = new Subject<ThesisPayload>();
   thesisForm: FormGroup;
   boardMembersForm: FormGroup;
-  BoardMemberOptionsString: string[] = [];
   BoardMemberOptions: ProfessorPayload[];
   boardMembers: ProfessorPayload[];
   datePipe: DatePipe = new DatePipe('en-US');
@@ -32,7 +31,8 @@ export class ThesesDetailsStaffComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute,
               private fb: FormBuilder,
-              private dataService: DataService) {
+              private dataService: DataService,
+              private matDialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -40,32 +40,25 @@ export class ThesesDetailsStaffComponent implements OnInit {
       params => {
         this.id = +params['id'];
         this.thesis = this.thesesStaffService.getThesis(this.id);
-        this.changed.next('next');
-        this.thesisSubject.next(this.thesis);
         this.buildForm();
         this.buildBoardMembersForm();
         this.getBoardMembersOptions(this.thesis);
         this.getBoardMembers();
-        this.thesesStaffService.thesisUpdated.subscribe(value => {
-          this.thesis = this.thesesStaffService.getThesis(this.id);
-        });
         this.thesesStaffService.boardMembersSubject.subscribe(value => {
           this.boardMembers = value;
         });
       });
-    this.boardMembers = this.thesesStaffService.getBoardMembers();
   }
 
   private getBoardMembers() {
+    //   this.dataService.getBoardMembers(boardMemberIds).subscribe(value => {
+    //   this.boardMembers = value;
+    // });
     let boardFunctions = this.thesis.board.professors.filter(value => value.function == "BOARD_MEMBER");
     let boardMemberIds = boardFunctions.map(value => {
       return value.boardFunctionId.professorId
     });
-    this.dataService.getBoardMembers(boardMemberIds).subscribe(value => {
-      this.thesesStaffService.setBoardMembers(value);
-      this.getBoardMembersOptions(this.thesis);
-      this.boardMembers = value;
-    });
+    this.dataService.getBoardMembers(boardMemberIds).subscribe();
 
   }
 
@@ -127,9 +120,18 @@ export class ThesesDetailsStaffComponent implements OnInit {
 
   onAddNewBoardMember() {
     const professor = this.boardMembersForm.value.boardMember;
+    console.log(professor);
+    if (this.boardMembers.find(value => value.personId == professor.personId)) {
+      this.matDialog.open(DialogComponent, {
+        data: {title: "Greška", message: "Član je već dodat u komisiju!"}
+      });
+      return;
+    }
     this.dataService.setBoardMember(this.thesis.board.boardId + '', professor.personId + '').subscribe(value => {
-      this.thesis.board.professors.push(professor);
-      this.getBoardMembers();
+      // this.boardMembers.push(value);
+      // this.getBoardMembers();
+      const professorPayloads = this.BoardMemberOptions.filter(value1 => value1.personId !== value.personId);
+      this.thesesStaffService.setBoardMemberOptions(professorPayloads);
     });
   }
 
@@ -141,11 +143,6 @@ export class ThesesDetailsStaffComponent implements OnInit {
     this.dataService.getBoardMembersOptions(thesis.graduateThesisId);
     this.thesesStaffService.boardMemberOptionsChanged.subscribe(value => {
       this.BoardMemberOptions = value;
-      this.BoardMemberOptionsString = [];
-      this.BoardMemberOptions.forEach(option => {
-        let stringOption = option.title.name + " " + option.name + " " + option.surname;
-        this.BoardMemberOptionsString.push(stringOption);
-      })
     });
   }
 }
