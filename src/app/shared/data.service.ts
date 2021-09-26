@@ -464,7 +464,7 @@ export class DataService {
       tap(professors => {
         console.log(professors);
         this.thesesStaffService.setBoardMembers(professors);
-      })).subscribe();
+      }));
 
   }
 

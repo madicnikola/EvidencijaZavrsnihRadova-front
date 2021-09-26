@@ -4,6 +4,8 @@ import {FormBuilder, FormGroup, NgForm} from '@angular/forms';
 import {AuthService} from "../auth.service";
 import {LoginRequestPayload} from "../../shared/dto/login-request.payload";
 import {throwError} from "rxjs";
+import {MatDialog} from "@angular/material/dialog";
+import {DialogComponent} from "../../shared/dialog/dialog.component";
 
 @Component({
   selector: 'app-signin',
@@ -17,7 +19,8 @@ export class SigninComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private router: Router,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private matDialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -38,6 +41,9 @@ export class SigninComponent implements OnInit {
     }, error => {
       this.isError = true;
       throwError(error);
+      this.matDialog.open(DialogComponent,{
+        data: {title: "Greška prilikom prijave na sistem", message: "Proverite korisničko ime i šifru i da li ste verifikovali mejl i pokušajte opet"}
+      });
     });
   }
 

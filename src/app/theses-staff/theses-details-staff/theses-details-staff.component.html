@@ -14,23 +14,23 @@
       <p>Datumi</p>
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Termin odbrane</mat-label>
-        <input matInput placeholder="" formControlName="dateOfThesisDefence"
-               [value]="thesis.dateOfThesisDefence | date: 'dd-MM-yyyy'">
+        <input matInput type="date" placeholder="" formControlName="dateOfThesisDefence"
+               [value]="thesis.dateOfThesisDefence | date: 'yyyy-MM-dd'">
       </mat-form-field>
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Prijava</mat-label>
-        <input matInput placeholder="" formControlName="dateOfReception"
-               [value]="thesis.dateOfReception | date: 'dd-MM-yyyy'">
+        <input matInput type="date" placeholder="" formControlName="dateOfReception"
+               [value]="thesis.dateOfReception | date: 'yyyy-MM-dd'">
       </mat-form-field>
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Predaja</mat-label>
-        <input matInput placeholder="" formControlName="dateOfThesisSubmission"
-               [value]="thesis.dateOfThesisSubmission | date: 'dd-MM-yyyy'">
+        <input matInput type="date"  placeholder="" formControlName="dateOfThesisSubmission"
+               [value]="thesis.dateOfThesisSubmission | date: 'yyyy-MM-dd'">
       </mat-form-field>
       <mat-form-field class="example-full-width" appearance="outline">
         <mat-label>Odbranjen</mat-label>
-        <input matInput placeholder="" formControlName="dateThesisDefended"
-               [value]="thesis.dateOfThesisDefence | date: 'dd-MM-yyyy'">
+        <input matInput type="date" placeholder="" formControlName="dateThesisDefended"
+               [value]="thesis.dateOfThesisDefence | date: 'yyyy-MM-dd'">
       </mat-form-field>
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Fakultet</mat-label>

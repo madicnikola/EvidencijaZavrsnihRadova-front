@@ -15,7 +15,7 @@ import {ProfessorPayload} from "../../shared/dto/professor.payload";
   templateUrl: './theses-details-staff.component.html',
   styleUrls: ['./theses-details-staff.component.css']
 })
-export class ThesesDetailsStaffComponent implements OnInit, AfterViewInit {
+export class ThesesDetailsStaffComponent implements OnInit {
   thesis: ThesisPayload;
   id: number;
   changed: Subject<string> = new Subject<string>();
@@ -46,13 +46,14 @@ export class ThesesDetailsStaffComponent implements OnInit, AfterViewInit {
         this.buildBoardMembersForm();
         this.getBoardMembersOptions(this.thesis);
         this.getBoardMembers();
-        this.thesesStaffService.boardMembersSubject.subscribe(value => {
-          this.boardMembers = value;
-        });
         this.thesesStaffService.thesisUpdated.subscribe(value => {
           this.thesis = this.thesesStaffService.getThesis(this.id);
         });
+        this.thesesStaffService.boardMembersSubject.subscribe(value => {
+          this.boardMembers = value;
+        });
       });
+    this.boardMembers = this.thesesStaffService.getBoardMembers();
   }
 
   private getBoardMembers() {
@@ -60,23 +61,28 @@ export class ThesesDetailsStaffComponent implements OnInit, AfterViewInit {
     let boardMemberIds = boardFunctions.map(value => {
       return value.boardFunctionId.professorId
     });
-    this.dataService.getBoardMembers(boardMemberIds);
+    this.dataService.getBoardMembers(boardMemberIds).subscribe(value => {
+      this.thesesStaffService.setBoardMembers(value);
+      this.getBoardMembersOptions(this.thesis);
+      this.boardMembers = value;
+    });
+
   }
 
-  ngAfterViewInit(): void {
-    this.thesisSubject.next(this.thesis);
-    this.thesisSubject.pipe(take(1)).subscribe(value => {
-      this.thesis = value;
-      // this.buildForm();
-    });
-  }
+  // ngAfterViewInit(): void {
+  //   this.thesisSubject.next(this.thesis);
+  //   this.thesisSubject.pipe(take(1)).subscribe(value => {
+  //     this.thesis = value;
+  //     // this.buildForm();
+  //   });
+  // }
 
   displayFn(prof: ProfessorPayload): string {
     return prof && prof.name ? prof.title.name + ' ' + prof.name + ' ' + prof.surname : '';
   }
 
   private buildForm() {
-    let format = 'dd-MM-yyyy';
+    let format = 'yyyy-MM-dd';
     this.thesisForm = this.fb.group(
       {
         graduateThesisId: this.thesis.graduateThesisId,

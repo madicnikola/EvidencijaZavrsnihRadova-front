@@ -42,11 +42,10 @@ export class ThesisDetailViewComponent implements OnInit, OnChanges, OnDestroy {
     let boardMemberIds = boardFunctions.map(value => {
       return value.boardFunctionId.professorId
     });
-    this.boardMembersSub =
     //   this.dataService.getBoardMembers(boardMemberIds).subscribe(value => {
     //   this.boardMembers = value;
     // });
-      this.dataService.getBoardMembers(boardMemberIds);
+    this.boardMembersSub = this.dataService.getBoardMembers(boardMemberIds).subscribe();
     this.registeredEventsSubscription = this.dataService.getMentor(mentorId).subscribe(value => {
       this.mentor = value;
     });
