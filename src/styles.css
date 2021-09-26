@@ -1,4 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+  font-family: "Open Sans",sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.785em;
+  color: #000;
+  background-color: #fff;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden!important;
+  padding-bottom:100px;
+}
+
 .md-datepicker-input-container {
   height: 38px;
 }

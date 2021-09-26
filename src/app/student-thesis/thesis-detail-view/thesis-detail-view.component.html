@@ -1,4 +1,7 @@
+
+
 <div *ngIf="thesis">
+
   <!--  <form [formGroup]="thesisForm">-->
   <!--    <h2>Završni rad</h2>-->
   <!--    <p>Tip završnog rada : Završni rad</p>-->
@@ -32,33 +35,51 @@
   <!--             [value]="thesis.dateOfThesisDefence | date: 'dd-MMM-yyyy'" readonly>-->
   <!--    </mat-form-field>-->
   <!--  </form>-->
+
   <h2>Završni rad</h2>
-  <h4>Tip završnog rada : Završni rad</h4>
+  <div class="row p-4 shadow" >
+    <div class="col-sm-4">
+  <h5 class="border-bottom " > Tip završnog rada : Završni rad</h5>
   <mat-label>Tema</mat-label>
   <mat-card style="margin: 1px;">{{thesis.title}}</mat-card>
   <mat-label>Ocena</mat-label>
   <mat-card style="margin: 1px;">{{thesis.grade}}</mat-card>
-  <h4>Datumi</h4>
-  <mat-label>Termin odbrane</mat-label>
-  <mat-card style="margin: 1px;">{{thesis.dateOfThesisDefence | date: 'dd-MMM-yyyy'}}</mat-card>
+    </div>
+    <div class="col-sm-8">
+      <h5 class="border-bottom ">Datumi</h5>
+      <div class="row">
+        <div class="col-sm-6">
+          <mat-label>Termin odbrane</mat-label>
+          <mat-card style="margin: 1px;">{{thesis.dateOfThesisDefence | date: 'dd-MMM-yyyy'}}</mat-card>
+          <mat-label>Prijava</mat-label>
+          <mat-card style="margin: 1px;"> {{thesis.dateOfReception | date: 'dd-MMM-yyyy'}}</mat-card>
+        </div>
 
-  <mat-label>Prijava</mat-label>
-  <mat-card style="margin: 1px;"> {{thesis.dateOfReception | date: 'dd-MMM-yyyy'}}</mat-card>
-  <mat-label>Predaja</mat-label>
-  <mat-card style="margin: 1px;"> {{thesis.dateOfThesisSubmission | date: 'dd-MMM-yyyy'}}</mat-card>
-  <mat-label>Datum formiranja komisije</mat-label>
-  <mat-card style="margin: 1px;">{{thesis.dateOfBoardFormation | date: 'dd-MMM-yyyy'}}</mat-card>
-  <ng-template [ngIf]="mentor">
-    <mat-tab-group [(selectedIndex)]="selectedIndex">
-      <mat-tab label="Mentor">
-        <mat-card> {{mentor.title.name}} {{mentor.name}} {{mentor.surname}}</mat-card>
-      </mat-tab>
-      <mat-tab label="Odbrana">
-        <tr
-          *ngFor="let boardMember of boardMembers">
-          <td>{{boardMember.title.name}} {{boardMember.name}} {{boardMember.surname}}</td>
-        </tr>
-      </mat-tab>
-    </mat-tab-group>
-  </ng-template>
+      <div class="col-sm-6">
+        <mat-label>Predaja</mat-label>
+        <mat-card style="margin: 1px;"> {{thesis.dateOfThesisSubmission | date: 'dd-MMM-yyyy'}}</mat-card>
+        <mat-label>Datum formiranja komisije</mat-label>
+        <mat-card style="margin: 1px;">{{thesis.dateOfBoardFormation | date: 'dd-MMM-yyyy'}}</mat-card>
+      </div>
+      </div>
+    </div>
+</div>
+  <hr>
+  <div class="row ">
+    <div class="col">
+      <ng-template [ngIf]="mentor">
+        <mat-tab-group [(selectedIndex)]="selectedIndex">
+          <mat-tab label="Mentor" class="tab-mentor">
+            <mat-card> {{mentor.title.name}} {{mentor.name}} {{mentor.surname}}</mat-card>
+          </mat-tab>
+          <mat-tab  label="Odbrana" class="tab-odbrana">
+            <tr
+              *ngFor="let boardMember of boardMembers">
+              <td>{{boardMember.title.name}} {{boardMember.name}} {{boardMember.surname}}</td>
+            </tr>
+          </mat-tab>
+        </mat-tab-group>
+      </ng-template>
+    </div>
+</div>
 </div>

@@ -1,0 +1,28 @@
+::ng-deep .mat-tab-group{
+  align-items: center !important;
+}
+::ng-deep .mat-tab-header{
+  width: 100% !important;
+
+}
+::ng-deep .mat-tab-label
+{
+  height: 27px !important;
+  min-height: 5px!important;
+  margin: 3px!important;
+  width: 50%!important;
+  min-width: 50px!important;
+}
+::ng-deep .mat-tab-body-wrapper{
+  width: 100% !important;
+  margin:0 auto!important;
+  text-align: center !important;
+}
+::ng-deep .mat-tab-body-content, ::ng-deep .mat-tab-body-content tr{
+  display: flex!important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-content: center !important;
+}
+
+

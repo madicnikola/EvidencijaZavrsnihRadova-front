@@ -1,4 +1,3 @@
-<p>notification-details works!</p>
 <!-- TODO: notif-details html -->
 <h4>Student</h4>
 <p *ngIf="student">
@@ -7,7 +6,7 @@
 <form [formGroup]="thesisTitleForm" (ngSubmit)="onTitleSubmit()">
   <mat-form-field class="full-width" appearance="fill">
     <mat-label>Tema</mat-label>
-    <input matInput type="text" placeholder="Unesite naziv teme" formControlName="title" [value]="thesis ? thesis.title : ''">
+    <input matInput type="text"  placeholder="Unesite naziv teme" formControlName="title" [value]="thesis ? thesis.title : ''">
     <mat-error *ngIf="thesisTitleForm.controls['title'].hasError('required')">
       Naziv teme je <strong>neophodan</strong>
     </mat-error>

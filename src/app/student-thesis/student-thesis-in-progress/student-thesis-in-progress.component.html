@@ -1,36 +1,52 @@
 <app-thesis-detail-view [thesis]="thesis"></app-thesis-detail-view>
 <hr>
 <div class="container">
-  <h2>Dokumenta</h2>
-  <div class="row">
-    <button mat-raised-button style="margin: 1px;" class="btn" (click)="onAddPdf()">
-      <mat-icon>library_add</mat-icon>
-      Dodaj dokument(.pdf)
-    </button>
-    <ng-template [ngIf]="addPdf">
-      <app-file-upload [thesis]="thesis" (uploaded)="onUpload($event)" [fileType]="'document'"></app-file-upload>
-    </ng-template>
-  </div>
-  <div class="row">
-    <button mat-raised-button style="margin: 1px;" class="btn" (click)="onAddZip()">
+  <h5>Otpremi dokumenta</h5>
+
+
+  <div class="row container">
+    <div class="col-sm-7 d-flex flex-column">
+
+      <div class="section-padding-item">
+        <button mat-raised-button style="margin: 1px;" class="btn w-100 mb-2" (click)="onAddPdf()">
+          <mat-icon>library_add</mat-icon>
+          Dodaj dokument(.pdf)
+        </button>
+
+        <ng-template [ngIf]="addPdf">
+          <app-file-upload [thesis]="thesis" (uploaded)="onUpload($event)" [fileType]="'document'"></app-file-upload>
+        </ng-template>
+      </div>
+
+      <div class="section-padding-item">
+    <button mat-raised-button style="margin: 1px;" class="btn w-100 mb-2" (click)="onAddZip()">
       <mat-icon>library_add</mat-icon>
       Dodaj kod(.zip)
     </button>
+
+
     <ng-template [ngIf]="addZip">
       <app-file-upload [thesis]="thesis" (uploaded)="onUpload($event)" [fileType]="'sourcecode'"></app-file-upload>
     </ng-template>
-  </div>
-  <div class="row">
-    <button mat-raised-button style="margin: 1px;" class="btn" (click)="onAddPptx()" >
+      </div>
+      <div class="section-padding-item">
+    <button mat-raised-button style="margin: 1px;" class="btn w-100 mb-2" (click)="onAddPptx()" >
       <mat-icon>library_add</mat-icon>
       Dodaj prezentaciju(.pptx)
     </button>
+
     <ng-template [ngIf]="addPptx">
       <app-file-upload [thesis]="thesis" (uploaded)="onUpload($event)" [fileType]="'presentation'"></app-file-upload>
     </ng-template>
+      </div>
   </div>
-  <app-file-list [title]="'Dokumenta'"
-                 [deleteEnabled]="true"></app-file-list>
+
+    <div class="col-sm-5">
+      <app-file-list [title]="'Lista'"
+                     [deleteEnabled]="true"></app-file-list>
+
+    </div>
+  </div>
 </div>
 
 

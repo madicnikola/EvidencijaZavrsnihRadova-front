@@ -29,8 +29,7 @@ import {NotificationsModule} from "./notifications/notifications.module";
     ProfessorsModule,
     StudentsModule,
     StudentThesisModule,
-    NotificationsModule,
-
+    NotificationsModule
   ],
   bootstrap: [AppComponent]
 })
