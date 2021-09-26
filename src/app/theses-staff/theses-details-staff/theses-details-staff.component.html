@@ -20,10 +20,12 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="row">
+      <div class="row d-flex flex-row justify-content-between">
+        <div class="d-flex flex-column">
         <div class="col-6 col-sm-6">
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Termin odbrane</mat-label>
+
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label class="font-weight-bold">Termin odbrane</mat-label>
             <input matInput type="date" placeholder="" formControlName="dateOfThesisDefence"
                    [value]="thesis.dateOfThesisDefence | date: 'yyyy-MM-dd'">
           </mat-form-field>
@@ -35,8 +37,10 @@
                    [value]="thesis.dateOfReception | date: 'yyyy-MM-dd'">
           </mat-form-field>
         </div>
+        </div>
         <!-- Force next columns to break to new line at md breakpoint and up -->
-        <div class="w-100 d-none d-md-block"></div>
+
+        <div class="d-flex flex-column">
         <div class="col-6 col-sm-6">
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Predaja</mat-label>
@@ -51,6 +55,8 @@
                    [value]="thesis.dateOfThesisDefence | date: 'yyyy-MM-dd'">
           </mat-form-field>
         </div>
+        </div>
+
       </div>
 
       <mat-form-field class="full-width" appearance="outline">
@@ -90,7 +96,7 @@
         <input matInput type="text" placeholder="" formControlName="studentIndexNumber"
                [value]="this.thesis.student.indexNumber" readonly>
       </mat-form-field>
-      <button mat-raised-button class="btn" style=" margin: 5px 1px 1px;" type="submit">Sačuvaj promene</button>
+      <button mat-raised-button class="btn float-right" style=" margin: 5px 1px 1px;" type="submit">Sačuvaj promene</button>
     </div>
   </form>
 
@@ -108,7 +114,7 @@
       <div class="container">
       <ng-template [ngIf]="showNewMemberControl">
         <div class="row">
-          <mat-form-field class="example-full-width" appearance="fill">
+          <mat-form-field class="example-full-width w-100" appearance="fill">
             <mat-label>Član</mat-label>
             <input type="text"
                    placeholder="Izaberite"
@@ -122,12 +128,14 @@
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
-          <button mat-raised-button class="btn" style="margin: 5px 1px 1px;" type="submit" (click)="onAddNewBoardMember()">
-            Dodaj člana
-          </button>
+
         </div>
         <div class="row">
-          <button mat-raised-button class="btn" style=" margin: 5px 1px 1px;" type="submit">Sačuvaj promene</button>
+          <div class="col-sm-12 d-flex justify-content-center" >
+            <button mat-raised-button class="btn w-50" style="margin: 5px 1px 1px;" type="submit" (click)="onAddNewBoardMember()">
+              Dodaj člana
+            </button>
+          </div>
         </div>
       </ng-template>
       </div>
