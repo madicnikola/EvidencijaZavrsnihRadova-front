@@ -11,6 +11,7 @@ import {DataService} from "../../shared/data.service";
 import {ProfessorPayload} from "../../shared/dto/professor.payload";
 import {MatDialog} from "@angular/material/dialog";
 import {DialogComponent} from "../../shared/dialog/dialog.component";
+import {BigInteger} from "@angular/compiler/src/i18n/big_integer";
 
 @Component({
   selector: 'app-theses-details-staff',
@@ -24,6 +25,7 @@ export class ThesesDetailsStaffComponent implements OnInit {
   boardMembersForm: FormGroup;
   BoardMemberOptions: ProfessorPayload[];
   boardMembers: ProfessorPayload[];
+  boardMemberIds: number[];
   datePipe: DatePipe = new DatePipe('en-US');
   showNewMemberControl: boolean = true;
 
@@ -55,10 +57,10 @@ export class ThesesDetailsStaffComponent implements OnInit {
     //   this.boardMembers = value;
     // });
     let boardFunctions = this.thesis.board.professors.filter(value => value.function == "BOARD_MEMBER");
-    let boardMemberIds = boardFunctions.map(value => {
+    this.boardMemberIds = boardFunctions.map(value => {
       return value.boardFunctionId.professorId
     });
-    this.dataService.getBoardMembers(boardMemberIds).subscribe();
+    this.dataService.getBoardMembers(this.boardMemberIds).subscribe();
 
   }
 
@@ -128,16 +130,17 @@ export class ThesesDetailsStaffComponent implements OnInit {
       return;
     }
     this.dataService.setBoardMember(this.thesis.board.boardId + '', professor.personId + '').subscribe(value => {
-      // this.boardMembers.push(value);
-      // this.getBoardMembers();
       const professorPayloads = this.BoardMemberOptions.filter(value1 => value1.personId !== value.personId);
       this.thesesStaffService.setBoardMemberOptions(professorPayloads);
+      this.thesis.board.professors.push({
+        function: "BOARD_MEMBER",
+        joinDate: new Date(),
+        boardFunctionId: {professorId: Number(value.personId), boardId: Number(this.thesis.board.boardId)}
+      });
+      this.thesesStaffService.setUpdatedThesis(this.thesis);
     });
   }
 
-  onBoardMembersFormSubmit() {
-
-  }
 
   private getBoardMembersOptions(thesis: ThesisPayload) {
     this.dataService.getBoardMembersOptions(thesis.graduateThesisId);

@@ -109,7 +109,7 @@
       *ngFor="let boardMember of boardMembers;">
       <td>{{boardMember.title.name}} {{boardMember.name}} {{boardMember.surname}}  - {{boardMembers.indexOf(boardMember)+1}}. član </td>
     </tr>
-    <form [formGroup]="boardMembersForm" (ngSubmit)="onBoardMembersFormSubmit()">
+    <form [formGroup]="boardMembersForm">
 
       <div class="container">
       <ng-template [ngIf]="showNewMemberControl">
@@ -139,7 +139,6 @@
         </div>
       </ng-template>
       </div>
-
     </form>
     </div>
   </mat-tab>

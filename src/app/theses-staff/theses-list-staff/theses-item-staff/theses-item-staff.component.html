@@ -5,7 +5,7 @@
   class="list-group-item clearfix list-theses-item-custom">
   <div class="pull-left">
     <h4 class="list-group-item-heading list-text-title">{{ thesis.title }}</h4>
-    <q class="list-group-item-text list-text-description">{{ thesis.description }}</q>
+    <p class="list-group-item-text list-text-description">{{ thesis.student.name }} {{thesis.student.surname}} {{thesis.student.indexNumber}}</p>
     <p class="list-group-item-text list-text-facility">{{ thesis.faculty }}</p> <h5 class="text-center list-text-date">{{thesis.dateOfThesisSubmission | date:'dd-MM-yyyy'}}</h5>
   </div>
 </a>
