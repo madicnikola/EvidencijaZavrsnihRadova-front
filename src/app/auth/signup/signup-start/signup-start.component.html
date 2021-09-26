@@ -1,8 +1,11 @@
-<div class="container">
-  <div class="col-12 d-flex  flex-column justify-content-center align-items-center login-custom-class pl-5 pr-5 pb-5">
-      <label class="font-weight-bold">Registracija </label>
-<button mat-raised-button class="btn-outline-light w-50  bg-info mb-2 " (click)="onStudent()">  STUDENT </button>
+<div class="container m-5">
+  <div class="row justify-content-center">
+    <div class="col-md-4 col-sm-offset-1 col-md-offset-2 p-5 login-custom-class  w-100">
+      <label class=" w-100  mb-4 text-center text-uppercase custom-reg-font">Registracija </label>
+      <button mat-raised-button mat-focus-indicator  mat-button-base class=" w-100  mb-2 " (click)="onStudent()">  STUDENT </button>
+      <button mat-raised-button mat-focus-indicator  mat-button-base class=" w-100 mb-2"   (click)="onProfessor()">  PROFESOR  </button>
+    </div>
+  </div>
+</div>
 
-<button mat-raised-button class="btn-outline-light w-50 bg-success"   (click)="onProfessor()">  PROFESOR  </button>
-</div>
-</div>
+

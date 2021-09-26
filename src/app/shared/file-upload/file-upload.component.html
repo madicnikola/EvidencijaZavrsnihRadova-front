@@ -1,8 +1,8 @@
 
 <div class="row ">
   <div class="col-8 d-flex justify-content-start">
-    <label class="btn btn-default p-0 m-0">
-      <input type="file" (change)="selectFile($event)"/>
+    <label for="getFile" class="btn btn-default p-0 m-0">
+      <input id="getFile" type="file" placeholder="nije izabran ni jedan fajl" class="custom-file-input" (change)="selectFile($event)"/>
     </label>
   </div>
 

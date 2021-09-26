@@ -1,2 +1,37 @@
-<button mat-raised-button (click)="onRequest()" [disabled]="messageReceived">Posalji zahtev za temu</button>
-<p *ngIf="messageReceived">{{message}}</p>
+<div class="container mt-5">
+  <div class="row d-flex flex-column ">
+    <div class="col">
+      <div class="professor-inner ime-inner-section  ">
+        IME I PREZIME
+      </div>
+    </div>
+    <div class="col">
+      <div class=" professor-inner titula-inner-section">
+        titula
+      </div>
+    </div>
+    <div class="col">
+      <div class="professor-inner katedra-inner-section ">
+        katedra
+      </div>
+    </div>
+    <div class="col">
+      <div class="professor-inner telefon-inner-section">
+<span> Telefon: </span>
+      </div>
+    </div>
+    <div class="col">
+      <div class="professor-inner email-inner-section">
+        <span> E-mail pošta: </span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <button mat-raised-button class="w-100" (click)="onRequest()" [disabled]="messageReceived">Posalji zahtev za temu</button>
+      <p *ngIf="messageReceived">{{message}}</p>
+    </div>
+  </div>
+</div>
+
+

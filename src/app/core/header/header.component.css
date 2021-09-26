@@ -85,9 +85,21 @@ li.dropdown-item.nav-item.nav-log-out:hover{
 .dropdown:hover .dropbtn {background-color: white;}
 
 button.dropbtn{
+  text-transform: uppercase;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(0,0,0,.5);
   height: 100%;
   background-color:white;
+  max-height: 42px !important;
 }
+button.dropbtn:hover{
+color: rgba(0,0,0,.7);
+}
+
 .dropdown-content{
   top:100%;
+}
+.nav-item-main-page{
+left:5%;
 }

@@ -1,3 +1,11 @@
 .login-custom-class{
-  box-shadow: 0 2px 4px rgb(0 0 0), 0 8px 16px rgb(0 0 0)
+  box-shadow: 0 2px 12px rgb(131 128 128), 0 1px 1px rgb(131 128 128);
+}
+.mat-raised-button:hover {
+  background-color: rgba(24, 119, 242, 0.8);
+  color: #fff;
+  font-weight: bold;
+}
+.custom-reg-font{
+  font-size: 16px;
 }

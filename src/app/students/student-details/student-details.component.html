@@ -4,5 +4,5 @@
                [hideShowEnabled]="true"></app-file-list>
 <ng-template [ngIf]="isMentor()">
 <button mat-raised-button class="btn" style="margin-top: 5px; width: 100%;" (click)="onPublish()" *ngIf="thesis.visibilityStatus != 'PUBLISHED'">OBJAVI RAD</button>
-<button mat-raised-button class="btn" style="margin-top: 5px; width: 100%;" (click)="onUnpublish()" *ngIf="thesis.visibilityStatus == 'PUBLISHED'">POVUCI OBJAVU RADA</button>
+<button mat-raised-button class="btn btn-light" style="margin-top: 5px; width: 100%;" (click)="onUnpublish()" *ngIf="thesis.visibilityStatus == 'PUBLISHED'">POVUCI OBJAVU RADA</button>
 </ng-template>

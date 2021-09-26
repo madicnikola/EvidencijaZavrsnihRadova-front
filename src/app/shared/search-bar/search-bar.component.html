@@ -6,7 +6,7 @@
 
         <mat-icon matChipRemove>cancel</mat-icon>
       </mat-chip>
-      <input #autocompleteInput type="text" placeholder="Enter title" aria-label="Number" matInput [formControl]="myControl"
+      <input #autocompleteInput type="text" placeholder="Pretrazi po naslovu..." aria-label="Number" matInput [formControl]="myControl"
              [matAutocomplete]="auto" [matChipInputFor]="chipList">
       <mat-icon matSuffix>search</mat-icon>
       <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">

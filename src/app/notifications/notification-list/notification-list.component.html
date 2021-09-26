@@ -1,19 +1,13 @@
-<div class="row">
-  <div class="col-xs-12">
+
     <!--    <button class="btn btn-success" (click)="onNewRecipe()">New Recipe</button>-->
     <!--    <app-search-bar (onSelectedOption)="onSelectedOption($event)"></app-search-bar>-->
     <mat-form-field class="full-width" style="width: 100%" appearance="outline">
-      <input matInput type="text" placeholder="Enter title" aria-label="Number" [(ngModel)]="searchText">
+      <input matInput type="text" placeholder="Pretrazi po naslovu..." aria-label="Number" [(ngModel)]="searchText">
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
-  </div>
-</div>
-<hr>
-<div class="row ">
-  <div class="col-xs-12">
     <app-notification-item
       *ngFor="let notifEl of notifications | filter:searchText; let i = index"
       [notification]="notifEl"
       [index]="i"></app-notification-item>
-  </div>
-</div>
+
+
