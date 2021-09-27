@@ -1,0 +1,14 @@
+.student-detail-name{
+  font-size: 17px;
+  margin:5px 0;
+}
+.student-detail-comonent{
+  font-size: 20px;
+}
+.student-name-detail-comonent{
+  font-size: 18px;
+  margin:5px 0;
+}
+.student-detail-name{
+  border-bottom:1px solid rgba(161, 158, 158, 0.47);
+}

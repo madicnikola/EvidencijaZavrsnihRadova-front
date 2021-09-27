@@ -1,5 +1,6 @@
 .professor-inner{
   font-size: 16px;
+  margin:5px 0;
 }
 .ime-inner-section, .titula-inner-section{
   font-size: 17px;
@@ -14,4 +15,8 @@ titula-inner-section{
 .professor-detail-container{
   padding:15px;
   background-color: #fafafa;
+}
+.professor-inner.ime-inner-section{
+ line-height: 1.785em;
+  border-bottom:1px solid rgba(161, 158, 158, 0.47);
 }

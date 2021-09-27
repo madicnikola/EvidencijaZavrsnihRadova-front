@@ -1,15 +1,18 @@
 <!-- TODO: notif-details html -->
-<h4>Student</h4>
-<p *ngIf="student">
-  {{student.name}} {{student.surname}} {{student.indexNumber}}
-</p>
-<form [formGroup]="thesisTitleForm" (ngSubmit)="onTitleSubmit()">
-  <mat-form-field class="full-width" appearance="fill">
-    <mat-label>Tema</mat-label>
-    <input matInput type="text"  placeholder="Unesite naziv teme" formControlName="title" [value]="thesis ? thesis.title : ''">
-    <mat-error *ngIf="thesisTitleForm.controls['title'].hasError('required')">
-      Naziv teme je <strong>neophodan</strong>
-    </mat-error>
-  </mat-form-field>
-  <button mat-raised-button class="btn btn-light" style="margin: 1px;" type="submit">Potvrdi</button>
-</form>
+<div class="notification-detail-student m-3">
+  <h4>Student</h4>
+  <p *ngIf="student">
+    {{student.name}} {{student.surname}} {{student.indexNumber}}
+  </p>
+  <form [formGroup]="thesisTitleForm" (ngSubmit)="onTitleSubmit()">
+    <mat-form-field class="full-width" appearance="fill">
+      <mat-label>Tema</mat-label>
+      <input matInput type="text"  placeholder="Unesite naziv teme" formControlName="title" [value]="thesis ? thesis.title : ''">
+      <mat-error *ngIf="thesisTitleForm.controls['title'].hasError('required')">
+        Naziv teme je <strong>neophodan</strong>
+      </mat-error>
+    </mat-form-field>
+    <button mat-raised-button class="btn btn-light" style="margin: 1px;" type="submit">Potvrdi</button>
+  </form>
+
+</div>
