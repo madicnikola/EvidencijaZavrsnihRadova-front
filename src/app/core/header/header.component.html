@@ -27,9 +27,7 @@
               <li class="nav-item" ngbDropdownItem><a class="nav-link" routerLink="/thesis" routerLinkActive="active">Završni
                 Rad</a></li>
             </ng-template>
-            <ng-template [ngIf]="authService.isAuthorized(['PROFESSOR','STAFF'])">
-              <!--              <li class="nav-item" ngbDropdownItem><a class="nav-link" routerLink="/students" routerLinkActive="active">Studenti</a>-->
-              <!--              </li>-->
+            <ng-template [ngIf]="authService.isAuthorized(['PROFESSOR'])">
               <li class="dropdown nav-item" ngbDropdownItem>
                 <button class="dropbtn">STUDENTI</button>
                 <div class="dropdown-content">
@@ -44,8 +42,6 @@
               <li class="nav-item" ngbDropdownItem><a class="nav-link" routerLink="/theses-admin" routerLinkActive="active">Završni
                 Radovi</a></li>
             </ng-template>
-            <li class="nav-item" ngbDropdownItem><a class="nav-link" routerLink="/theses" routerLinkActive="active">Objavljeni
-              Radovi</a></li>
             <li class="nav-item" ngbDropdownItem><a class="nav-link" routerLink="/notifications"
                                                     routerLinkActive="active">Obaveštenja</a></li>
             <li class="nav-item nav-log-out" ngbDropdownItem><a class="nav-link " (click)="onLogout()"

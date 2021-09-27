@@ -1,5 +1,5 @@
-import {Component, Input, OnChanges, OnDestroy, OnInit} from '@angular/core';
-import {Observable, Subject, Subscription} from "rxjs";
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Observable, Subscription} from "rxjs";
 import {FileUploadService} from "../file-upload.service";
 import {ThesisPayload} from "../../dto/thesis.payload";
 import {VisibilityStatus} from "../../model/progress-status.model";
@@ -20,7 +20,8 @@ export class FileListComponent implements OnInit, OnDestroy {
   @Input() title: string;
   @Input() deleteEnabled: boolean = false;
   sub: Subscription;
-  @Input() hideShowEnabled: boolean = false;
+  @Input() OptionsEnabled: boolean = false;
+  checked: boolean = false;
 
 
   constructor(private uploadService: FileUploadService) {
@@ -71,14 +72,14 @@ export class FileListComponent implements OnInit, OnDestroy {
       console.log('0');
       status = VisibilityStatus.PRIVATE;
     }
-    this.uploadService.changeDocumentVisibility(this.folderName, filename, status).pipe(take(1)).subscribe(value => {
+    this.uploadService.changeDocumentVisibility(this.folderName, filename, status).subscribe(value => {
       console.log('status: ' + status);
       this.docInfos = this.uploadService.getFiles(this.folderName);
     });
   }
 
   changeBackToPrivate(filename: string, status: VisibilityStatus) {
-      status = VisibilityStatus.PRIVATE;
+    status = VisibilityStatus.PRIVATE;
     this.uploadService.changeDocumentVisibility(this.folderName, filename, status).subscribe(value => {
       console.log('status: ' + status);
       this.docInfos = this.uploadService.getFiles(this.folderName);
@@ -86,6 +87,36 @@ export class FileListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    if (this.sub)
+      this.sub.unsubscribe();
+  }
+
+  onCheckBoxClick(filename: string, status: VisibilityStatus) {
+    switch (status) {
+      case 'PUBLISHED':
+        status = VisibilityStatus.PRIVATE;
+        this.uploadService.changeDocumentVisibility(this.folderName, filename, status).subscribe(value => {
+          console.log('status: ' + status);
+          this.docInfos = this.uploadService.getFiles(this.folderName);
+        });
+        break;
+      case 'PRIVATE':
+        status = VisibilityStatus.PUBLISHED;
+        this.uploadService.changeDocumentVisibility(this.folderName, filename, status).subscribe(value => {
+          console.log('status: ' + status);
+          this.docInfos = this.uploadService.getFiles(this.folderName);
+        });
+        break;
+      case 'BOARD_VIEW':
+        status = VisibilityStatus.PUBLISHED;
+        this.uploadService.changeDocumentVisibility(this.folderName, filename, status).subscribe(value => {
+          console.log('status: ' + status);
+          this.docInfos = this.uploadService.getFiles(this.folderName);
+        });
+        break;
+      default:
+        return;
+    }
+
   }
 }

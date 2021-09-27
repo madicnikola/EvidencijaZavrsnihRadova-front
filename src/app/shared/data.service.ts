@@ -29,6 +29,7 @@ const myThesisUrl = `${environment.apiUrl}/graduate-thesis/my-thesis`;
 const studentUrl = `${environment.apiUrl}/students/`;
 const studentsBoardUrl = `${environment.apiUrl}/students/board`;
 const publishThesisUrl = `${environment.apiUrl}/graduate-thesis/publish`;
+const unpublishThesisUrl = `${environment.apiUrl}/graduate-thesis/unpublish`;
 const thesesByYearUrl = `${environment.apiUrl}/graduate-thesis/filter/`;
 const allThesesUrl = `${environment.apiUrl}/graduate-thesis`;
 const professorUrl = `${environment.apiUrl}/professor/`;
@@ -372,8 +373,24 @@ export class DataService {
         });
         return throwError(err);
       }));
-
-
+  }
+  unpublishThesis(thesis: ThesisPayload) {
+    return this.http.post<ThesisPayload>(unpublishThesisUrl, thesis,
+      {
+        observe: 'body',
+        responseType: 'json'
+      }).pipe(
+      map(thesis => {
+        console.log(thesis);
+        // transform here if it needs
+        return thesis;
+      }), catchError(err => {
+        console.log('error caught');
+        this.dialog.open(DialogComponent, {
+          data: {title: "Error", message: err}
+        });
+        return throwError(err);
+      }));
   }
 
   getThesesByYear(year: number) {

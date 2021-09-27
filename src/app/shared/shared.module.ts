@@ -10,7 +10,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {FileListComponent} from './file-upload/file-list/file-list.component';
 import {MatIconModule} from "@angular/material/icon";
 import {MatTooltipModule} from "@angular/material/tooltip";
-import { ThesesStaffComponent } from '../theses-staff/theses-staff.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -19,14 +20,16 @@ import { ThesesStaffComponent } from '../theses-staff/theses-staff.component';
     FileUploadComponent,
     FileListComponent,
   ],
-    imports: [
-        CommonModule,
-        HttpClientModule,
-        MatDialogModule,
-        MatButtonModule,
-        MatIconModule,
-        MatTooltipModule,
-    ],
+  imports: [
+    CommonModule,
+    HttpClientModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTooltipModule,
+    MatCheckboxModule,
+    FormsModule,
+  ],
     exports: [
         CommonModule,
         HttpClientModule,

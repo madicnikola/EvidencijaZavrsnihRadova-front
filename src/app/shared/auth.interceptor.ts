@@ -15,7 +15,7 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log('Intercepted!', req);
+    // console.log('Intercepted!', req);
 
     let jwtToken = 'Bearer '.concat(this.authService.getToken());
     if (this.authService.isAuthenticated()) {

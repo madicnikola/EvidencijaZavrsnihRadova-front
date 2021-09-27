@@ -19,6 +19,7 @@ export interface Board {
 export interface ThesisPayload {
   graduateThesisId: bigint;
   title: string;
+  grade?: number;
   faculty: string;
   description: string;
   dateOfReception: Date;
@@ -27,7 +28,6 @@ export interface ThesisPayload {
   dateOfThesisSubmission: Date;
   progressStatus: ProgressStatus;
   visibilityStatus: VisibilityStatus;
-  grade: number;
   student: Student;
   board: Board;
 }

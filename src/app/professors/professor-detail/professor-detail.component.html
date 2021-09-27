@@ -1,34 +1,41 @@
-<div class="container mt-5">
+<div class="container professor-detail-container mt-5">
   <div class="row d-flex flex-column ">
     <div class="col">
       <div class="professor-inner ime-inner-section  ">
-        IME I PREZIME
+        {{professor.title.name}} {{professor.name}} {{professor.surname}}
       </div>
     </div>
     <div class="col">
       <div class=" professor-inner titula-inner-section">
-        titula
+        {{professor.academicRank.name}}
       </div>
     </div>
     <div class="col">
       <div class="professor-inner katedra-inner-section ">
-        katedra
+        {{professor.department}}
       </div>
     </div>
     <div class="col">
       <div class="professor-inner telefon-inner-section">
-<span> Telefon: </span>
+        <span> Kabinet </span>{{professor.cabinet}}
+      </div>
+    </div>
+    <div class="col">
+      <div class="professor-inner telefon-inner-section">
+        <span> Telefon: </span>{{professor.phone}}
       </div>
     </div>
     <div class="col">
       <div class="professor-inner email-inner-section">
-        <span> E-mail pošta: </span>
+        <span> E-mail pošta: </span>{{professor.userProfile.email}}
       </div>
     </div>
   </div>
   <div class="row">
     <div class="col">
-      <button mat-raised-button class="w-100" (click)="onRequest()" [disabled]="messageReceived">Posalji zahtev za temu</button>
+      <button mat-raised-button class="w-100 mt-3 " (click)="onRequest()" [disabled]="messageReceived">Posalji zahtev za
+        temu
+      </button>
       <p *ngIf="messageReceived">{{message}}</p>
     </div>
   </div>

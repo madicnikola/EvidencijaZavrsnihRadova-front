@@ -56,21 +56,25 @@ export class StudentDetailsComponent implements OnInit, AfterViewInit {
   }
 
   isMentor() {
+    if(this.student.mentor)
     return this.student.mentor.userProfile.username == this.authService.getUserName();
+
+    return false;
   }
 
   onPublish() {
     this.thesis.visibilityStatus = VisibilityStatus.PUBLISHED;
     this.dataService.publishThesis(this.thesis).subscribe(value => {
       this.thesis = value;
+      this.uploadService.setThesis(this.thesis);
     });
   }
 
-
   onUnpublish() {
     this.thesis.visibilityStatus = VisibilityStatus.PRIVATE;
-    this.dataService.publishThesis(this.thesis).subscribe(value => {
+    this.dataService.unpublishThesis(this.thesis).subscribe(value => {
       this.thesis = value;
+      this.uploadService.setThesis(this.thesis);
     });
   }
 }

@@ -82,18 +82,18 @@ export class ThesesDetailsStaffComponent implements OnInit {
       {
         graduateThesisId: this.thesis.graduateThesisId,
         title: this.thesis.title,
-        grade: this.thesis.grade,
+        grade: this.thesis.grade == 0 ? '' : this.thesis.grade,
         dateOfThesisDefence: [this.datePipe.transform(this.thesis.dateOfThesisDefence, format)],
         dateOfReception: this.datePipe.transform(this.thesis.dateOfReception, format),
         dateOfBoardFormation: this.datePipe.transform(this.thesis.dateOfBoardFormation, format),
         dateThesisDefended: this.datePipe.transform(this.thesis.dateOfThesisDefence, format),
         dateOfThesisSubmission: this.datePipe.transform(this.thesis.dateOfThesisSubmission, format),
         faculty: this.thesis.faculty,
-        progressStatus: this.thesis.progressStatus,
-        visibilityStatus: this.thesis.visibilityStatus,
         studentName: this.thesis.student.name,
         studentSurname: this.thesis.student.surname,
         studentIndexNumber: this.thesis.student.indexNumber,
+        visibilityStatus: this.thesis.visibilityStatus == 'PUBLISHED' ? 'OBJAVLJEN' : 'NEOBJAVLJEN',
+        departmentName: this.thesis.student.department.name,
       });
   }
 
@@ -113,11 +113,14 @@ export class ThesesDetailsStaffComponent implements OnInit {
       dateOfReception: Date.parse(this.thesisForm.value.dateOfReception),
       dateOfThesisSubmission: Date.parse(this.thesisForm.value.dateOfThesisSubmission)
     };
+    update.visibilityStatus = this.thesis.visibilityStatus;
+
     delete update.studentIndexNumber;
     delete update.studentName;
     delete update.studentSurname;
 
     this.dataService.updateThesis(update, this.thesis.graduateThesisId);
+
   }
 
   onAddNewBoardMember() {

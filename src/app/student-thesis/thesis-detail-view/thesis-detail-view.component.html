@@ -6,7 +6,7 @@
       <mat-label>Tema</mat-label>
       <mat-card style="margin: 1px;">{{thesis.title}}</mat-card>
       <mat-label>Ocena</mat-label>
-      <mat-card style="margin: 1px;">{{thesis.grade}}</mat-card>
+      <mat-card style="margin: 1px;">{{thesis.grade == 0 ? '' : thesis.grade}}</mat-card>
     </div>
     <div class="col-sm-8">
       <h5 class="border-bottom ">Datumi</h5>
@@ -35,7 +35,7 @@
           <mat-tab label="Mentor" class="tab-mentor">
             <mat-card> {{mentor.title.name}} {{mentor.name}} {{mentor.surname}}</mat-card>
           </mat-tab>
-          <mat-tab  label="Odbrana" class="tab-odbrana">
+          <mat-tab  label="Komisija" class="tab-odbrana">
             <tr
               *ngFor="let boardMember of boardMembers">
               <td>{{boardMember.title.name}} {{boardMember.name}} {{boardMember.surname}}</td>

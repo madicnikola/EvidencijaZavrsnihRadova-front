@@ -17,7 +17,6 @@ export class ThesesStaffService {
   boardMembers: ProfessorPayload[] = [];
 
 
-
   constructor() {
   }
 
@@ -44,6 +43,8 @@ export class ThesesStaffService {
       }
     });
     this.thesisUpdated.next(thesis);
+    this.thesesChanged.next(this.theses);
+
   }
 
   setBoardMemberOptions(professors: ProfessorPayload[]) {
@@ -61,10 +62,10 @@ export class ThesesStaffService {
   }
 
   setNewBoardMember(professor: ProfessorPayload) {
-      let professors = this.getBoardMembers();
-      professors.push(professor);
-      this.setBoardMembers(professors);
-      console.log(professors);
+    let professors = this.getBoardMembers();
+    professors.push(professor);
+    this.setBoardMembers(professors);
+    console.log(professors);
     // this.boardMembersSubject.pipe(take(1),tap(x => {
     //   professors = x;
     //   professors.push(professor);

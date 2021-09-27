@@ -2,7 +2,7 @@
   <div class="col-lg-12">
     <!--      <app-search-bar (onSelectedOption)="onSelectedOption($event)"></app-search-bar>-->
     <mat-form-field class="full-width search-custom" style="width: 100%" appearance="outline" *ngIf="theses != null && theses.length !=0">
-      <input matInput type="text" placeholder="Pretrazi po naslovu..." aria-label="Number" [(ngModel)]="searchText">
+      <input matInput type="text" placeholder="Pretrazi..." aria-label="Number" [(ngModel)]="searchText">
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
   </div>
@@ -16,4 +16,3 @@
       [index]="i"></app-theses-item-staff>
   </div>
 </div>
-
