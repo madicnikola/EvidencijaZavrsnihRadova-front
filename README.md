@@ -4,7 +4,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 
 ## Demo
-https://youtu.be/tAvyRW-r7Xk
+[![https://yt-embed.herokuapp.com/embed?v=tAvyRW-r7Xk](https://img.youtube.com/vi/tAvyRW-r7Xk/0.jpg)](https://www.youtube.com/watch?v=tAvyRW-r7Xk)
 
 ## Development server
 
